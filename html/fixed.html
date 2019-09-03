@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>fixedPane</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        html, body {
+            background-color: #dfdede;
+        }
+        li {
+            padding: 3px 10px;
+            border-bottom: 1px solid #d4d3d3;
+        }
+        .liActive {
+            background-color: #3ABA63;
+        }
+        li a {
+            display: block;
+            padding: 10px 30px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="user"><a class="home">个人信息</a></li>
+        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="fqc"><a class="nav1">FQC</a></li>
+        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="dt"><a class="nav2">大烫</a></li>
+        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="bz"><a class="nav3">包装</a></li>
+        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="sf"><a class="nav4">收发</a></li>
+    </ul>
+</nav>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+apiready = function () {
+    api.setStatusBarStyle({
+        style: 'dark',
+        color: '#000'
+    });
+    $api.fixStatusBar($api.dom('nav'));
+};
+// 随意切换按钮
+function randomSwitchBtn( tag ) {
+    if( tag == $api.dom('nav li.active') )return;
+    var eHeaderLis = $api.domAll('nav li'),
+        index = 0;
+    for (var i = 0,len = eHeaderLis.length; i < len; i++) {
+        if( tag == eHeaderLis[i] ){
+            index = i;
+        }else{
+            $api.removeCls(eHeaderLis[i], 'active');
+        }
+    }
+    $api.addCls( eHeaderLis[index], 'active');
+    var pagename=$api.attr(tag,"value");
+    api.openWin({
+        name: pagename,
+        url: './frame/'+pagename+'.html',
+        pageParam: {
+            name: pagename
+       }
+    });
+}
+</script>
+</html>
