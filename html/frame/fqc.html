@@ -193,35 +193,42 @@
                   bgColor: '#388e8e',
                   activeBgColor: '',
                   width: 70,
-                  title: '按钮',
+                  title: '产量报表',
                   titleSize: 12,
                   titleColor: '#fff',
                   icon: '',
                   iconWidth: 20
               }],
               styles: {
-                  borderColor: '#696969',
+                  borderColor: '#dcdcdc',
                   item: {
-                      bgColor: '#AFEEEE',
+                      bgColor: '#FFFFFF',
                       activeBgColor: '#F5F5F5',
                       height: 55.0,
                       imgWidth: 40,
                       imgHeight: 40,
                       imgCorner: 4,
                       placeholderImg: '',
-                      titleSize: 12.0,
+                      titleSize: 14.0,
                       titleColor: '#000',
                       subTitleSize: 12.0,
-                      subTitleColor: '#000',
+                      subTitleColor: '#666666',
                       remarkColor: '#000',
-                      remarkSize: 16,
-                      remarkIconWidth: 30
+                      remarkSize: 14,
+                      remarkIconWidth: 20
                   }
               },
               fixedOn: api.frameName
           }, function(ret, err) {
               if (ret) {
-                  //alert(JSON.stringify(ret));
+                  if(ret.eventType==="clickContent"){
+                    //alert("选中记录索引："+ret.index);
+                    editDetail(result.data[ret.index]);
+                  }else if(ret.eventType==="clickRightBtn"){
+                    alert("点击了按钮"+ret.btnIndex+",选中记录："+ret.index);
+                  }else{
+                    alert(JSON.stringify(ret));
+                  }
               } else {
                   alert(JSON.stringify(err));
               }
@@ -229,105 +236,116 @@
         }
       });
     }
+    function editDetail(item){
+      var pagename="fqc_detail";
+      api.openWin({
+          name: pagename,
+          url: './'+pagename+'.html',
+          pageParam: {
+              uworkId: item["uid"],
+              title:item["title"]
+         }
+      });
+    }
     function getListData(styleNo,groupId,callFun){
       var result={state:200,data:[{
           uid: '1001',
           imgPath: 'widget://res/img/apicloud.png',
-          title: '款号：201905BUY-CK1358',
-          subTitle: '鹰美一车间1组  ',
-          remark: '010',
-          icon: ''
+          title: 'NIK19100113',
+          subTitle: '款号：201905BUY-CK1358   颜色:010',
+          remark: '鹰美一车间1组',
+          icon: 'widget://image/process.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346',
-        subTitle: '鹰美一车间2组  ',
-        remark: '020',
-        icon: ''
+        title: 'NIK19100114',
+        subTitle: '款号：201905BUY-CK1346   颜色:020',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/process.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK19450025',
+        subTitle: '款号：201905BUY-CK1346   颜色:013',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/process.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918906',
+        subTitle: '款号：201905BUY-CK1346   颜色:013',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918913',
+        subTitle: '款号：201905BUY-CK1346   颜色:013',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918915',
+        subTitle: '款号：201905BUY-CK1346   颜色:013',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918917',
+        subTitle: '款号：201905BUY-CK1346   颜色:013',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918918',
+        subTitle: '款号：201905BUY-CK1346   颜色:013',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/process.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918918',
+        subTitle: '款号：201905BUY-CK1346   颜色:010',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/process.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918918',
+        subTitle: '款号：201905BUY-CK1346   颜色:020',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918918',
+        subTitle: '款号：201905BUY-CK1346   颜色:025',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/process.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK1918902',
+        subTitle: '款号：201905BUY-CK1346   颜色:010',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK19189022',
+        subTitle: '款号：201905BUY-CK1346   颜色:010',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }, {
         uid: '1002',
         imgPath: 'widget://res/img/apicloud.png',
-        title: '款号：201905BUY-CK1346  颜色：020',
-        subTitle: '鹰美一车间2组  ',
-        remark: '',
-        icon: ''
+        title: 'NIK19189023',
+        subTitle: '款号：201905BUY-CK1346   颜色:020',
+        remark: '鹰美一车间2组',
+        icon: 'widget://image/succed.png'
       }]}
       if(styleNo==null && groupId==null){
         //获取所有数据

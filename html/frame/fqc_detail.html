@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>FQC</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <style>
+        header{ background-color: #FCFCFC; line-height: 42px; height: 42px; position: relative; }
+        header b{ width: 42px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
+        header b.ic-back{ background-image: url(../../image/back.png); }
+        header b.ic-check{ background-image: url(../../image/more.png); float: right; }
+        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px;  }
+    </style>
+</head>
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+        <header class="border-b" >
+            <b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>
+            <div class="title"></div>
+            <b tapmode="hover" onclick="funActionSheet();"  class="ic-check"></b>
+        </header>
+        <div id="main" class="flex-con" >
+
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    var uowrkId=null;
+    apiready = function(){
+        $api.fixStatusBar( $api.dom('header') );
+        uowrkId=api.pageParam.uworkId;
+        $api.dom('.title').innerHTML = api.pageParam.title;
+        initMenus();
+        initDetail();
+    };
+
+    function funActionSheet(){
+        api.actionSheet({
+            title: '记录筛选',
+            cancelTitle: '取消',
+            buttons: ['按款号查询','按班组查询']
+        },function(ret,err){
+            if(ret.buttonIndex===1){
+
+            }
+            if(ret.buttonIndex===2){
+
+            }
+        });
+    }
+    function initMenus(){
+      var NVTabBar = api.require('NVTabBar');
+      NVTabBar.open({
+          styles: {
+              bg: '#333',
+              //bg:"widget://image/NVTabBar/tabbar_bg.png",
+              h: 65,
+              dividingLine: {
+                  width: 0,
+                  color: '#000'
+              },
+              badge: {
+                  bgColor: '#ff0',
+                  numColor: '#fff',
+                  size: 6.0,
+                  centerX: 40,
+                  centerY: 6
+              }
+          },
+          items: [
+          {
+              w: api.winWidth /4.0,
+              // bg: {
+              //     marginB: 0,
+              //     image: 'rgba(200,200,200,0.7)'
+              // },
+              iconRect: {
+                  w: 25.0,
+                  h: 25.0,
+              },
+              icon: {
+                  normal: 'widget://image/nvtabvar/hege.png',
+                  highlight: 'widget://image/nvtabvar/hege1.png',
+                  selected: 'widget://image/nvtabvar/hege2.png'
+              },
+              title: {
+                  text: '品检合格',
+                  size: 12.0,
+                  normal: '#696969',
+                  selected: '#eb4f38',
+                  marginB: 6.0
+              }
+          },
+           {
+              w: api.winWidth / 4.0,
+              // bg: {
+              //     marginB: 10,
+              //     image: 'widget://image/NVTabBar/yyuan.png' //中间背景图
+              // },
+              iconRect: {
+                  w: 25.0,
+                  h: 25.0,
+              },
+              icon: {
+                  normal: 'widget://image/nvtabvar/cuowu.png',
+                  highlight: 'widget://image/nvtabvar/cuowu1.png',
+                  selected: 'widget://image/nvtabvar/cuowu2.png'
+              },
+              title: {
+                  text: '品检不合格',
+                  size: 12.0,
+                  normal: '#696969',
+                  selected: '#eb4f38',
+                  marginB: 0
+              }
+          },
+          {
+              w: api.winWidth / 4.0,
+              // bg: {
+              //     marginB: 0,
+              //     image: 'rgba(200,20,0,0.6)'
+              // },
+              iconRect: {
+                  w: 25.0,
+                  h: 25.0,
+              },
+              icon: {
+                  normal: 'widget://image/nvtabvar/chexiao.png',
+                  highlight: 'widget://image/nvtabvar/chexiao1.png',
+                  selected: 'widget://image/nvtabvar/chexiao2.png'
+              },
+              title: {
+                  text: '撤销操作',
+                  size: 12.0,
+                  normal: '#696969',
+                  selected: '#eb4f38',
+                  marginB: 6.0
+              }
+          },
+          {
+              w: api.winWidth / 4.0,
+              // bg: {
+              //     marginB: 0,
+              //     image: 'rgba(220,0,220,0.7)'
+              // },
+              iconRect: {
+                  w: 25.0,
+                  h: 25.0,
+              },
+              icon: {
+                  normal: 'widget://image/nvtabvar/jisuan.png',
+                  highlight: 'widget://image/nvtabvar/jisuan1.png',
+                  selected: 'widget://image/nvtabvar/jisuan2.png'
+              },
+              title: {
+                  text: '产量报表',
+                  size: 12.0,
+                  normal: '#696969',
+                  selected: '#eb4f38',
+                  marginB: 6.0
+              }
+          }],
+          selectedIndex: 0
+      }, function(ret, err) {
+      });
+    }
+    function initDetail(){
+      getDetailData(null,function(result){
+        if(result.state==200){
+
+        }
+      });
+    }
+    function getDetailData(uworkId,callFun){
+      var result={state:200,data:[]};
+      return result;
+    }
+</script>

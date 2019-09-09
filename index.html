@@ -27,20 +27,26 @@
 <body>
 <script>
     apiready = function () {
-        api.openSlidLayout({
-            type: 'left',
-            leftEdge: 60,
-            fixedPane: {
-                name: 'fixed',
-                url: 'html/fixed.html'
-            },
-            slidPane: {
-                name: 'slide',
-                url: 'html/slide.html'
-            }
-        }, function (ret) {
+    /*控制横屏*/
+    api.setScreenOrientation({
+         orientation: 'landscape_left'
+     });
+     api.setFullScreen({
+         fullScreen: true
+     });
 
-        });
+    api.openSlidLayout({
+        type: 'left',
+        leftEdge: 60,
+        fixedPane: {
+            name: 'fixed',
+            url: 'html/fixed.html'
+        },
+        slidPane: {
+            name: 'slide',
+            url: 'html/slide.html'
+        }
+    }, function (ret) {});
     }
 </script>
 </body>
