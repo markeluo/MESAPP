@@ -8,11 +8,11 @@
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
     <style>
-        header{ background-color: #FCFCFC; line-height: 42px; height: 42px; position: relative; }
-        header b{ width: 42px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
+        header{ background-color: #FFFFFF; line-height: 60px; height: 60px; position: relative;}
+        header b{width:60px;height: 60px;display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 40px 40px;}
         header b.ic-back{ background-image: url(../../image/back.png); }
         header b.ic-check{ background-image: url(../../image/more.png); float: right; }
-        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px;  }
+        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size:24px;  }
     </style>
 </head>
 <body>
@@ -31,9 +31,8 @@
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript">
     apiready = function(){
-        $api.fixStatusBar( $api.dom('header') );
+        //$api.fixStatusBar($api.dom('header'));
         $api.dom('.title').innerHTML = api.pageParam.name;
-
         initList();
     };
 
@@ -192,30 +191,30 @@
               rightBtns: [{
                   bgColor: '#388e8e',
                   activeBgColor: '',
-                  width: 70,
+                  width: 80,
                   title: '产量报表',
-                  titleSize: 12,
+                  titleSize: 14,
                   titleColor: '#fff',
                   icon: '',
-                  iconWidth: 20
+                  iconWidth: 30
               }],
               styles: {
                   borderColor: '#dcdcdc',
                   item: {
                       bgColor: '#FFFFFF',
                       activeBgColor: '#F5F5F5',
-                      height: 55.0,
+                      height: 65.0,
                       imgWidth: 40,
                       imgHeight: 40,
                       imgCorner: 4,
-                      placeholderImg: '',
-                      titleSize: 14.0,
+                      placeholderImg:'',
+                      titleSize: 16.0,
                       titleColor: '#000',
-                      subTitleSize: 12.0,
+                      subTitleSize: 14.0,
                       subTitleColor: '#666666',
                       remarkColor: '#000',
-                      remarkSize: 14,
-                      remarkIconWidth: 20
+                      remarkSize: 16,
+                      remarkIconWidth: 30
                   }
               },
               fixedOn: api.frameName
@@ -227,7 +226,7 @@
                   }else if(ret.eventType==="clickRightBtn"){
                     alert("点击了按钮"+ret.btnIndex+",选中记录："+ret.index);
                   }else{
-                    alert(JSON.stringify(ret));
+                    //alert(JSON.stringify(ret));
                   }
               } else {
                   alert(JSON.stringify(err));

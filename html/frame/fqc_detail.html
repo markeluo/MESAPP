@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
     <style>
-        header{ background-color: #FCFCFC; line-height: 42px; height: 42px; position: relative; }
-        header b{ width: 42px; height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 70% auto;  }
+        header{ background-color: #FCFCFC;line-height: 60px; height: 60px;  position: relative; }
+        header b{width:60px;height: 60px;height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size:40px 40px;  }
         header b.ic-back{ background-image: url(../../image/back.png); }
         header b.ic-check{ background-image: url(../../image/more.png); float: right; }
         header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px;  }
@@ -32,7 +32,7 @@
 <script type="text/javascript">
     var uowrkId=null;
     apiready = function(){
-        $api.fixStatusBar( $api.dom('header') );
+        //$api.fixStatusBar( $api.dom('header') );
         uowrkId=api.pageParam.uworkId;
         $api.dom('.title').innerHTML = api.pageParam.title;
         initMenus();
@@ -57,9 +57,9 @@
       var NVTabBar = api.require('NVTabBar');
       NVTabBar.open({
           styles: {
-              bg: '#333',
+              bg: '#fAfAfA',
               //bg:"widget://image/NVTabBar/tabbar_bg.png",
-              h: 65,
+              h: 55,
               dividingLine: {
                   width: 0,
                   color: '#000'
@@ -89,11 +89,11 @@
                   selected: 'widget://image/nvtabvar/hege2.png'
               },
               title: {
-                  text: '品检合格',
+                  text: '合格',
                   size: 12.0,
                   normal: '#696969',
                   selected: '#eb4f38',
-                  marginB: 6.0
+                  marginB: 0.0
               }
           },
            {
@@ -112,7 +112,7 @@
                   selected: 'widget://image/nvtabvar/cuowu2.png'
               },
               title: {
-                  text: '品检不合格',
+                  text: '不合格',
                   size: 12.0,
                   normal: '#696969',
                   selected: '#eb4f38',
@@ -135,11 +135,11 @@
                   selected: 'widget://image/nvtabvar/chexiao2.png'
               },
               title: {
-                  text: '撤销操作',
+                  text: '撤销',
                   size: 12.0,
                   normal: '#696969',
                   selected: '#eb4f38',
-                  marginB: 6.0
+                  marginB: 0.0
               }
           },
           {
@@ -158,11 +158,11 @@
                   selected: 'widget://image/nvtabvar/jisuan2.png'
               },
               title: {
-                  text: '产量报表',
+                  text: '报表',
                   size: 12.0,
                   normal: '#696969',
                   selected: '#eb4f38',
-                  marginB: 6.0
+                  marginB: 0.0
               }
           }],
           selectedIndex: 0
