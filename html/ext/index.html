@@ -13,30 +13,16 @@
     <meta content="" name="author" />
     <title>自定义1</title>
     <!-- BEGIN 全局统一样式 -->
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/uniform/css/uniform.default.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+    <link rel="stylesheet" href="../../lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../../lib/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
     <!-- END 全局统一样式 -->
-    <!-- BEGIN 页面级插件样式 -->
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/fullcalendar/fullcalendar.min.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/jqvmap/jqvmap/jqvmap.css"/>
-    <!-- END 页面级插件样式 -->
-    <!-- BEGIN 页面样式 -->
-    <link rel="stylesheet" href="lib/metronic/assets/admin/pages/css/tasks.css"/>
-    <!-- END 页面样式 -->
     <!-- BEGIN 主题风格 -->
-    <link rel="stylesheet" href="lib/metronic/assets/global/css/components.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/css/plugins.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/admin/layout/css/layout.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/admin/layout/css/custom.css"/>
-    <link rel="stylesheet" href="lib/metronic/assets/global/plugins/bootstrap-toastr/toastr.min.css"/>
+    <link rel="stylesheet" href="../../lib/metronic/assets/global/css/components.css"/>
     <!-- END 主题风格 -->
     <style>
         html,body{display:-webkit-box;width: 100%;height:100%;padding: 0px;}
         .maindiv{background-color:#F1F3FA;-webkit-box-flex:1;padding:20px;display: -webkit-box;height: 100%;}
+        .dictlist.portlet.light.bordered{border-width:0px !important;}
         /*dictlist start*/
         .dictlist{-webkit-box-flex:3;background-color:#FFFFFF;padding:10px;-webkit-box-flex:1;}
         .dict_group{}
@@ -62,7 +48,20 @@
 </head>
 <body>
     <div class="maindiv">
-        <div class="dictlist">
+        <div class="dictlist portlet light bordered">
+          <div class="portlet-title">
+              <div class="caption caption-md">
+                  <i class="icon-bar-chart theme-font hide"></i>
+                  <span class="caption-subject theme-font bold uppercase">疵品计数</span>
+              </div>
+              <div class="actions">
+                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                      <a class="btn btn-circle green btn-sm"><i class="fa fa-plus"></i> 疵品</a>
+                      <a class="btn btn-circle red btn-sm"><i class="fa fa-minus"></i> 撤销</a>
+                  </div>
+              </div>
+          </div>
+          <div>
             <div class="clearfix dict_group">
                 <h4>车缝问题</h4>
                 <div class="group_items">
@@ -126,6 +125,7 @@
                     <a href="javascript:;" class="btn green"><i class="fa"></i>标识问题</a>
                 </div>
             </div>
+          </div>
         </div>
         <div class="menupanel">
             <div class="portlet light bordered">
@@ -189,22 +189,13 @@
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
-<script src="lib/metronic/assets/global/plugins/respond.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/excanvas.min.js"></script>
+<script src="../../lib/metronic/assets/global/plugins/respond.min.js"></script>
+<script src="../../lib/metronic/assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
-<script src="lib/metronic/assets/global/plugins/jquery.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/jquery-migrate.min.js"></script>
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="lib/metronic/assets/global/plugins/jquery-ui/jquery-ui.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/jquery.blockui.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/uniform/jquery.uniform.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/bootbox/bootbox.min.js"></script>
-<script src="lib/metronic/assets/global/plugins/jquery-knob/js/jquery.knob.js"></script>
-<script src="lib/metronic/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../lib/metronic/assets/global/plugins/jquery.min.js"></script>
+<script src="../../lib/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../lib/metronic/assets/global/plugins/jquery-knob/js/jquery.knob.js"></script>
+<script src="../../lib/metronic/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <script>
     jQuery(document).ready(function() {
