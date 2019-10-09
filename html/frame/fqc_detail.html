@@ -29,11 +29,18 @@
         .maindiv{background-color:#F1F3FA;-webkit-box-flex:1;padding:20px;display: -webkit-box;height: 100%;}
         .dictlist.portlet.light.bordered{border-width:0px !important;}
         /*dictlist start*/
-        .dictlist{-webkit-box-flex:3;background-color:#FFFFFF;padding:10px;-webkit-box-flex:1;}
+        .dictlist{
+          -webkit-box-flex:3;
+          background-color:#FFFFFF;
+          padding:10px;
+          -webkit-box-flex:1;}
         .dict_group{}
         .group_items>a.btn + .btn{margin-left:0px;}
-        .group_items>a{font-size:18px;margin-top:5px;}
-        .group_items>a>i{margin-right:0.5em;}
+        .group_items>a{
+          /*font-size:18px;*/
+          margin-top:5px;
+        }
+        .group_items>a>i{margin-right:0.3em;}
         /*dictlist end*/
         /*menupanel start*/
         .menupanel{
@@ -58,7 +65,7 @@
             <div class="title"></div>
             <b tapmode="hover" onclick="funActionSheet();"  class="ic-check"></b>
         </header>
-        <div id="main" class="flex-con" >
+        <div id="main" class="maindiv flex-con" >
           <div class="dictlist portlet light bordered">
             <div class="portlet-title">
                 <div class="caption caption-md">
@@ -68,72 +75,72 @@
                 <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <a class="btn btn-circle green btn-sm"><i class="fa fa-plus"></i> 疵品</a>
-                        <a class="btn btn-circle red btn-sm"><i class="fa fa-minus"></i> 撤销</a>
+                        <a class="btn btn-circle blue btn-sm"><i class="fa fa-undo"></i> 撤销</a>
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="dict_panel">
               <div class="clearfix dict_group">
                   <h4>车缝问题</h4>
                   <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>车缝跳线</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>机器跳线</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>间棉跳线</a>
-                      <a href="javascript:;" class="btn red"><i class="fa fa-check"></i>打折</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>落坑</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>爆口</a>
-                      <a href="javascript:;" class="btn red"><i class="fa fa-check"></i>错位</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>打枣不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>容位不均</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>领、袖不圆顺</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>骨位倒反</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>袋不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>拉链不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>下脚不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>线路不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>线头、残线</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>污渍</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>针洞</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>条格不对</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>扭腿</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>起吊</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>钻绒</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>充绒不均</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>车缝其它</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>车缝跳线</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>机器跳线</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>间棉跳线</a>
+                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>打折</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>落坑</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>爆口</a>
+                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>错位</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>打枣不良</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>容位不均</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>领、袖不圆顺</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>骨位倒反</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>袋不良</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>拉链不良</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>下脚不良</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>线路不良</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>线头、残线</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>污渍</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>针洞</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>条格不对</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>扭腿</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>起吊</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>钻绒</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>充绒不均</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>车缝其它</a>
                   </div>
               </div>
               <div class="clearfix dict_group">
                   <h4>面料问题</h4>
                   <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>抽纱</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>破洞</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>色纱</a>
-                      <a href="javascript:;" class="btn red"><i class="fa fa-check"></i>染花</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>起球</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>面料其他</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>抽纱</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>破洞</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>色纱</a>
+                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>染花</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>起球</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>面料其他</a>
                   </div>
               </div>
               <div class="clearfix dict_group">
                   <h4>整烫问题</h4>
                   <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>整烫不平服</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>整烫起镜</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>整烫打折</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-check"></i>整烫不对称</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>整烫藏止口</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫不平服</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫起镜</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫打折</a>
+                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>整烫不对称</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫藏止口</a>
                   </div>
               </div>
               <div class="clearfix dict_group">
                   <h4>尺寸问题</h4>
                   <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>尺寸偏大</a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>尺寸偏小</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>尺寸偏大</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>尺寸偏小</a>
                   </div>
               </div>
               <div class="clearfix dict_group">
                   <h4>标识问题</h4>
                   <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>标识问题</a>
+                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>标识问题</a>
                   </div>
               </div>
             </div>
@@ -145,13 +152,18 @@
                           <i class="icon-bar-chart theme-font hide"></i>
                           <span class="caption-subject theme-font bold uppercase">查验统计</span>
                       </div>
-                      <div class="actions"></div>
+                      <div class="actions">
+                          <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <a class="btn btn-circle green btn-sm"><i class="fa fa-upload"></i> 上报</a>
+                              <a class="btn btn-circle blue btn-sm"><i class="fa fa-line-chart"></i> 报表</a>
+                          </div>
+                      </div>
                   </div>
                   <div class="panel_item">
                       <div class="row list-separated">
                           <div class="col-md-4 col-sm-4 col-xs-6">
                               <div class="font-grey-mint font-sm">
-                                  品检合计
+                                  合计
                               </div>
                               <div class="uppercase font-hg theme-font">
                                   760
@@ -185,7 +197,7 @@
                       <div class="actions">
                           <div class="btn-group btn-group-devided" data-toggle="buttons">
                               <a class="btn btn-circle green btn-sm"><i class="fa fa-plus"></i> 合格</a>
-                              <a class="btn btn-circle red btn-sm"><i class="fa fa-minus"></i> 合格</a>
+                              <a class="btn btn-circle blue btn-sm"><i class="fa fa-minus"></i> 合格</a>
                           </div>
                       </div>
                   </div>
@@ -219,10 +231,19 @@
 
         Metronic.init(); // init metronic core components
         InitData();
-
+        InitEvents();
         initDetail();
     };
-
+    function InitEvents(){
+      $(".dict_panel div.group_items>a").unbind().bind("click",function(){
+          var checked=$(this).attr("item-check");
+          if(checked && checked==="1"){
+            $(this).attr("item-check","0").removeClass("red").addClass("green").find("i").removeClass("fa-check").addClass("fa-circle-o");
+          }else{
+            $(this).attr("item-check","1").removeClass("green").addClass("red").find("i").removeClass("fa-circle-o").addClass("fa-check");
+          }
+      });
+    }
     function InitData() {
         if (!jQuery().knob || Metronic.isIE8()) {
             return;
@@ -238,9 +259,9 @@
     }
     function funActionSheet(){
         api.actionSheet({
-            title: '记录筛选',
+            title: '查看',
             cancelTitle: '取消',
-            buttons: ['按款号查询','按班组查询']
+            buttons: ['离线数据','历史记录']
         },function(ret,err){
             if(ret.buttonIndex===1){
 
