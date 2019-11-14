@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>FQC</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <style>
+        header{ background-color: #FFFFFF; line-height: 60px; height: 60px; position: relative;}
+        header b{width:60px;height: 60px;display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size: 40px 40px;}
+        header b.ic-back{ background-image: url(../../image/back.png); }
+        header b.ic-check{ background-image: url(../../image/more.png); float: right; }
+        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size:24px;  }
+    </style>
+</head>
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+        <header class="border-b" >
+            <b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>
+            <div class="title"></div>
+            <b tapmode="hover" onclick="funActionSheet();"  class="ic-check"></b>
+        </header>
+        <div id="main" class="flex-con" >
+
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        //$api.fixStatusBar($api.dom('header'));
+        $api.dom('.title').innerHTML = api.pageParam.name;
+        initList();
+    };
+
+    function funActionSheet(){
+        api.actionSheet({
+            title: '记录筛选',
+            cancelTitle: '取消',
+            buttons: ['按款号查询','按班组查询']
+        },function(ret,err){
+            if(ret.buttonIndex===1){
+              styleNoSearch();
+            }
+            if(ret.buttonIndex===2){
+              groupSearch();
+            }
+        });
+    }
+    //款号搜索
+    function styleNoSearch(){
+      // var inputField = api.require('inputField');
+      // inputField.open({
+      //     bgColor: '#708090',
+      //     lineColor: '#dcdcdc',
+      //     fileBgColor:'#FFFFFF',
+      //     borderColor:'#dcdcdc',
+      //     //sendImg: 'widget://image/check.png',
+      //     sendBtn:{
+      //          bg: '#f00',          //字符串类型；发送按钮常态背景色
+      //          //inputBg:'#ff0',      //(可选项)字符串类型；当输入文字发时送按钮的背景色；默认：bg的色值
+      //          bgHighlight: '#000', //字符串类型；发送按钮点击时的高亮背景色
+      //          title: '搜索',        //字符串类型；发送按钮的标题
+      //          titleSize: 12,       //数字类型；发送按钮的标题字体大小
+      //          titleColor: '#fff',  //字符串类型；发送按钮标题文字颜色
+      //          corner: 5,           //数字类型；发送按钮圆角大小
+      //          sendW:50,            //数字类型；发送按钮的宽
+      //          sendH:35,            //数字类型；发送按钮的高
+      //          marginRight:10,      //数字类型；发送按钮距离屏幕右边的距离，本参数暂仅支持iOS平台；默认：10
+      //     },
+      //     fixedOn: api.frameName
+      // }, function(ret, err) {
+      //     if (ret) {
+      //         alert(ret.msg);
+      //     }
+      // });
+
+      var UISearchBar = api.require('UISearchBar');
+      UISearchBar.open({
+          placeholder: '请输入款号关键字',
+          historyCount: 10,
+          showRecordBtn: true,
+          texts: {
+              cancelText: '取消',
+              clearText: '清除搜索记录'
+          },
+          styles: {
+              navBar: {
+                  bgColor: '#FFFFFF',
+                  borderColor: '#ccc'
+              },
+              searchBox: {
+                  bgImg: '',
+                  color: '#000',
+                  height: 44
+              },
+              cancel: {
+                  bg: 'rgba(0,0,0,0)',
+                  color: '#D2691E',
+                  size: 16
+              },
+              list: {
+                  color: '#696969',
+                  bgColor: '#FFFFFF',
+                  borderColor: '#eee',
+                  size: 16
+              },
+              clear: {
+                  color: '#000000',
+                  borderColor: '#ccc',
+                  size: 16
+              }
+          }
+      }, function(ret, err) {
+          if (ret) {
+              alert(ret.text);
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+    }
+    //班组搜索
+    function groupSearch(){
+      var UICityList = api.require('UICityList');
+      UICityList.open({
+          rect: {
+              x: 0,
+              y: 0,
+              w: api.frameWidth,
+              h: api.frameHeight
+          },
+          resource: 'widget://res/groupList.json',
+          styles: {
+              searchBar: {
+                  bgColor: '#696969',
+                  cancelColor: '#E3E3E3'
+              },
+              location: {
+                  color: '#696969',
+                  size: 12
+              },
+              sectionTitle: {
+                  bgColor: '#eee',
+                  color: '#000',
+                  size: 12
+              },
+              item: {
+                  bgColor: '#fff',
+                  activeBgColor: '#696969',
+                  color: '#000',
+                  boardColor:'#dcdcdc',
+                  size: 14,
+                  height: 50
+              },
+              indicator: {
+                  bgColor: '#fff',
+                  color: '#696969'
+              }
+          },
+          //currentCity: '鹰美-1组',
+          locationWay: '',
+          hotTitle: '常用班组',
+          fixedOn: api.frameName,
+          placeholder: '输入班组名或首字母查询'
+      }, function(ret, err) {
+          if (ret) {
+            if(ret.eventType==="selected"){
+              UICityList.close();
+              alert(JSON.stringify(ret.cityInfo));
+            }
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+    }
+    function initList(){
+      var UIListView = api.require('UIListView');
+      getListData(null,null,function(result){
+        if(result.state==200){
+          UIListView.open({
+              rect: {
+                  x: 0,
+                  y:65,
+                  w: api.winWidth,
+                  h: api.frameHeight
+              },
+              data:result.data,
+              rightBtns: [{
+                  bgColor: '#388e8e',
+                  activeBgColor: '',
+                  width: 80,
+                  title: '产量报表',
+                  titleSize: 14,
+                  titleColor: '#fff',
+                  icon: '',
+                  iconWidth: 30
+              }],
+              styles: {
+                  borderColor: '#dcdcdc',
+                  item: {
+                      bgColor: '#FFFFFF',
+                      activeBgColor: '#F5F5F5',
+                      height: 65.0,
+                      imgWidth: 40,
+                      imgHeight: 40,
+                      imgCorner: 4,
+                      placeholderImg:'',
+                      titleSize: 16.0,
+                      titleColor: '#000',
+                      subTitleSize: 14.0,
+                      subTitleColor: '#666666',
+                      remarkColor: '#000',
+                      remarkSize: 16,
+                      remarkIconWidth: 30
+                  }
+              },
+              fixedOn: api.frameName
+          }, function(ret, err) {
+              if (ret) {
+                  if(ret.eventType==="clickContent"){
+                    //alert("选中记录索引："+ret.index);
+                    editDetail(result.data[ret.index]);
+                  }else if(ret.eventType==="clickRightBtn"){
+                    alert("点击了按钮"+ret.btnIndex+",选中记录："+ret.index);
+                  }else{
+                    //alert(JSON.stringify(ret));
+                  }
+              } else {
+                  alert(JSON.stringify(err));
+              }
+          });
+        }
+      });
+    }
+    function editDetail(item){
+      var pagename="lbd_detail";
+      api.openWin({
+          name: pagename,
+          url: './'+pagename+'.html',
+          pageParam: {
+              uworkId: item["uid"],
+              title:'批次:'+item["title"]+' ##'+item["subTitle"]
+         }
+      });
+    }
+    function getListData(styleNo,groupId,callFun){
+      var result={state:200,data:[{
+          uid: '1001',
+          imgPath: 'widget://res/img/apicloud.png',
+          title: 'LB000001',
+          subTitle: '款号：201905BUY-CK1358   颜色:010',
+          remark: '主身',
+          icon: 'widget://image/process.png'
+      }, {
+        uid: '1002',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: 'LB000002',
+        subTitle: '款号：201905BUY-CK1346   颜色:010',
+        remark: '主身',
+        icon: 'widget://image/process.png'
+      }, {
+        uid: '1002',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: 'LB000003',
+        subTitle: '款号：201905BUY-CK1346   颜色:010',
+        remark: '主身',
+        icon: 'widget://image/process.png'
+      }, {
+        uid: '1002',
+        imgPath: 'widget://res/img/apicloud.png',
+        title: 'LB000004',
+        subTitle: '款号：201905BUY-CK1346   颜色:100',
+        remark: '主身',
+        icon: 'widget://image/succed.png'
+      }]}
+      if(styleNo==null && groupId==null){
+        //获取所有数据
+        callFun(result);
+      }
+      if(styleNo && styleNo!=""){
+        //根据款号查找
+      }
+      if(groupId && groupId!=""){
+        //根据班组查找
+      }
+    }
+</script>
