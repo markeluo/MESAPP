@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../../lib/metronic/assets/global/css/components.css"/>
     <!-- END 主题风格 -->
     <style>
+        #wrap{width: 100%;}
         header{ background-color: #FCFCFC;line-height: 60px; height: 60px;  position: relative; }
         header b{width:60px;height: 60px;height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size:40px 40px;  }
         header b.ic-back{ background-image: url(../../image/back.png); }
@@ -30,11 +31,14 @@
         .dictlist.portlet.light.bordered{border-width:0px !important;}
         /*dictlist start*/
         .dictlist{
-          -webkit-box-flex:3;
           background-color:#FFFFFF;
           padding:10px;
-          -webkit-box-flex:1;}
-        .dict_group{}
+          -webkit-box-flex:1;
+          -moz-box-flex:1;
+        }
+        .dict_group{
+
+        }
         .group_items>a.btn + .btn{margin-left:0px;}
         .group_items>a{
           /*font-size:18px;*/
@@ -56,6 +60,27 @@
         }
         .panel_item>h4{text-align: center;}
         /*menupanel end*/
+        a.btn.opbtn{
+          padding:3px 8px 3px 8px;
+          border-radius:3px !important;
+        }
+        ul.dropdown-menu.pull-right{
+          min-width:100px;
+        }
+        ul.dropdown-menu.pull-right>li>a>i{
+          margin-right: 8px;
+        }
+        .dropdown-menu li > a > [class^="fa-"], .dropdown-menu li > a > [class*=" fa-"].fa-plus{color:#26a69a;}
+        .dropdown-menu li > a > [class^="fa-"], .dropdown-menu li > a > [class*=" fa-"].fa-edit{color:#3598dc;}
+        .dropdown-menu li > a > [class^="fa-"], .dropdown-menu li > a > [class*=" fa-"].fa-times{color:#cb5a5e;}
+        .form-body.changci_item{
+          max-height:400px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        #chuangci_edit{
+          display: none;
+        }
     </style>
 </head>
 <body>
@@ -70,78 +95,441 @@
             <div class="portlet-title">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart theme-font hide"></i>
-                    <span class="caption-subject theme-font bold uppercase">疵品计数</span>
+                    <span class="caption-subject theme-font bold uppercase">拉布床次</span>
                 </div>
                 <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
-                        <a class="btn btn-circle green btn-sm"><i class="fa fa-plus"></i> 疵品</a>
-                        <a class="btn btn-circle blue btn-sm"><i class="fa fa-undo"></i> 撤销</a>
+                        <a class="btn  green btn-sm" id="add_chuangci"><i class="fa fa-plus"></i> 新增床次</a>
                     </div>
                 </div>
             </div>
             <div class="dict_panel">
-              <div class="clearfix dict_group">
-                  <h4>车缝问题</h4>
-                  <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>车缝跳线</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>机器跳线</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>间棉跳线</a>
-                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>打折</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>落坑</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>爆口</a>
-                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>错位</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>打枣不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>容位不均</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>领、袖不圆顺</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>骨位倒反</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>袋不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>拉链不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>下脚不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>线路不良</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>线头、残线</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>污渍</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>针洞</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>条格不对</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>扭腿</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>起吊</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>钻绒</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>充绒不均</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>车缝其它</a>
-                  </div>
+              <div class="clearfix dict_group" id="chuangci_edit">
+                <div class="portlet box green">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="fa fa-gift"></i>床次详情
+										</div>
+										<div class="tools"></div>
+									</div>
+									<div class="portlet-body form">
+										<!-- BEGIN FORM-->
+										<form action="javascript:;" class="form-horizontal">
+											<div class="form-body changci_item">
+												<div class="form-group">
+													<label class="col-md-3 control-label">床次</label>
+													<div class="col-md-4">
+                            <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="fa fa-sort-numeric-asc"></i>
+                              </span>
+  														<input type="text" class="form-control" placeholder="输入床次号，不能重复">
+                            </div>
+													</div>
+                          <div class="col-md-3"><span class="help-block">A block of help text. </span></div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">缸号</label>
+													<div class="col-md-4">
+														<div class="input-group">
+															<span class="input-group-addon">
+															<i class="fa fa-cube"></i>
+															</span>
+															<input type="email" class="form-control" placeholder="面料缸号">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">码长</label>
+													<div class="col-md-4">
+														<div class="input-group">
+                              <span class="input-group-addon input-left">
+                              <i class="fa fa-fax"></i>
+                              </span>
+															<input type="password" class="form-control" placeholder="面料码长">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">XS</label>
+													<div class="col-md-4">
+														<div class="input-icon">
+															<input type="text" class="form-control" placeholder="">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">S</label>
+													<div class="col-md-4">
+														<div class="input-icon">
+															<input type="text" class="form-control" placeholder="">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-3 control-label">M</label>
+													<div class="col-md-4">
+                          	<div class="input-icon">
+  														<input type="text" class="form-control" placeholder="">
+                            </div>
+													</div>
+												</div>
+                        <div class="form-group">
+													<label class="col-md-3 control-label">L</label>
+													<div class="col-md-4">
+                            <div class="input-icon">
+  														<input type="text" class="form-control" placeholder="">
+                            </div>
+													</div>
+												</div>
+                        <div class="form-group">
+													<label class="col-md-3 control-label">XL</label>
+													<div class="col-md-4">
+                            <div class="input-icon">
+  														<input type="text" class="form-control" placeholder="">
+                            </div>
+													</div>
+												</div>
+                        <div class="form-group">
+													<label class="col-md-3 control-label">2XL</label>
+													<div class="col-md-4">
+                            <div class="input-icon">
+  														<input type="text" class="form-control" placeholder="">
+                            </div>
+													</div>
+												</div>
+                        <div class="form-group">
+                          <label class="col-md-3 control-label">余布</label>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span class="input-group-addon input-left">
+                              <i class="fa fa-tags"></i>
+                              </span>
+                              <input type="password" class="form-control" placeholder="余布 /米(M)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-3 control-label">备注</label>
+                          <div class="col-md-4">
+                            <textarea class="form-control" rows="3"></textarea>
+                          </div>
+                        </div>
+											</div>
+											<div class="form-actions">
+                        <div class="row">
+    											<div class="col-md-offset-3 col-md-9" id="editform_btns">
+                            <button type="submit" class="btn blue">保存</button>
+                            <button type="button" class="btn default">取消</button>
+    											</div>
+    										</div>
+											</div>
+										</form>
+										<!-- END FORM-->
+									</div>
+								</div>
               </div>
-              <div class="clearfix dict_group">
-                  <h4>面料问题</h4>
-                  <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>抽纱</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>破洞</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>色纱</a>
-                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>染花</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>起球</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>面料其他</a>
-                  </div>
-              </div>
-              <div class="clearfix dict_group">
-                  <h4>整烫问题</h4>
-                  <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫不平服</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫起镜</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫打折</a>
-                      <a href="javascript:;" class="btn red" item-check="1"><i class="fa fa-check"></i>整烫不对称</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>整烫藏止口</a>
-                  </div>
-              </div>
-              <div class="clearfix dict_group">
-                  <h4>尺寸问题</h4>
-                  <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>尺寸偏大</a>
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>尺寸偏小</a>
-                  </div>
-              </div>
-              <div class="clearfix dict_group">
-                  <h4>标识问题</h4>
-                  <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa fa-circle-o"></i>标识问题</a>
-                  </div>
+              <div class="clearfix dict_group" id="chuangci_list">
+                <div class="table-scrollable table-scrollable-borderless">
+                  <table class="table table-hover table-light">
+                  <thead>
+                  <tr class="uppercase">
+                    <th>
+                       序号
+                    </th>
+                    <th>
+                       缸号
+                    </th>
+                    <th>
+                       床次
+                    </th>
+                    <th>
+                       码长
+                    </th>
+                    <th>
+                       XS
+                    </th>
+                    <th>
+                       S
+                    </th>
+                    <th>
+                       M
+                    </th>
+                    <th>
+                       L
+                    </th>
+                    <th>
+                       XL
+                    </th>
+                    <th>
+                       2XL
+                    </th>
+                    <th>
+                       余布
+                    </th>
+                    <th>
+                       备注
+                    </th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tr>
+                    <td>
+                      1
+                    </td>
+                    <td>
+                      4590
+                    </td>
+                    <td>
+                      1
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                      36
+                    </td>
+                    <td>
+                      36
+                    </td>
+                    <td>
+                      36
+                    </td>
+                    <td>
+                      36
+                    </td>
+                    <td>
+                      36
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                      <div class="actions">
+        								<div class="btn-group">
+        									<a class="btn green-haze  btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">操作  <i class="fa fa-angle-down"></i>
+        									</a>
+        									<ul class="dropdown-menu pull-right">
+        										<li><a href="javascript:copy_item(this);"><i class="fa fa-plus"></i>复制</a></li>
+        										<li class="divider"></li>
+        										<li><a href="javascript:edit_item(this);"><i class="fa fa-edit"></i>修改</a></li>
+        										<li class="divider"></li>
+        										<li><a href="javascript:del_item(this);"><i class="fa fa-times"></i>删除</a></li>
+        									</ul>
+        								</div>
+        							</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      2
+                    </td>
+                    <td>
+                      4590
+                    </td>
+                    <td>
+                      2
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                      34
+                    </td>
+                    <td>
+                      34
+                    </td>
+                    <td>
+                      34
+                    </td>
+                    <td>
+                      34
+                    </td>
+                    <td>
+                      40
+                    </td>
+                    <td>
+                      5
+                    </td>
+                    <td>
+                      0.5M
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                      <div class="actions">
+        								<div class="btn-group">
+        									<a class="btn green-haze  btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">操作  <i class="fa fa-angle-down"></i>
+        									</a>
+        									<ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:copy_item(this);"><i class="fa fa-plus"></i>复制</a></li>
+        										<li class="divider"></li>
+        										<li><a href="javascript:edit_item(this);"><i class="fa fa-edit"></i>修改</a></li>
+        										<li class="divider"></li>
+        										<li><a href="javascript:del_item(this);"><i class="fa fa-times"></i>删除</a></li>
+        									</ul>
+        								</div>
+        							</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      3
+                    </td>
+                    <td>
+                      4590
+                    </td>
+                    <td>
+                      3
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                      30
+                    </td>
+                    <td>
+                      30
+                    </td>
+                    <td>
+                      30
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                      1M
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                      <div class="actions">
+        								<div class="btn-group">
+        									<a class="btn green-haze  btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">操作  <i class="fa fa-angle-down"></i>
+        									</a>
+        									<ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:copy_item(this);"><i class="fa fa-plus"></i>复制</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:edit_item(this);"><i class="fa fa-edit"></i>修改</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:del_item(this);"><i class="fa fa-times"></i>删除</a></li>
+        									</ul>
+        								</div>
+        							</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -154,8 +542,8 @@
                       </div>
                       <div class="actions">
                           <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <a class="btn btn-circle green btn-sm"><i class="fa fa-upload"></i> 提交</a>
-                              <a class="btn btn-circle blue btn-sm"><i class="fa fa-line-chart"></i> 报表</a>
+                            <a class="btn  green btn-sm"><i class="fa fa-upload"></i> 提交</a>
+                              <a class="btn  blue btn-sm"><i class="fa fa-line-chart"></i> 报表</a>
                           </div>
                       </div>
                   </div>
@@ -194,10 +582,123 @@
                           <i class="icon-bar-chart theme-font hide"></i>
                           <span class="caption-subject theme-font bold uppercase">拉布资料</span>
                       </div>
-                      <div class="actions"></div>
+                      <div class="actions">
+                        <span class="caption-subject theme-font bold uppercase">
+                           LB000001
+                        </span>
+                      </div>
                   </div>
                   <div class="panel_item">
-                    
+                    <div class="row list-separated">
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="font-grey-mint font-sm">
+                                款号
+                            </div>
+                            <div class="uppercase font-lg font-red-flamingo">
+                              CJ3686
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="font-grey-mint font-sm">
+                                布类
+                            </div>
+                            <div class="uppercase font-lg font-red-flamingo">
+                              666976
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="font-grey-mint font-sm">
+                                部位
+                            </div>
+                            <div class="uppercase font-lg font-red-flamingo">
+                                主身
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="font-grey-mint font-sm">
+                                颜色
+                            </div>
+                            <div class="uppercase font-lg font-red-flamingo">
+                              100
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-bar"></div>
+                    <div class="table-scrollable table-scrollable-borderless">
+      								<table class="table table-hover table-light">
+      								<thead>
+      								<tr class="uppercase">
+      									<th>
+      										 尺码
+      									</th>
+      									<th>
+      										 XS
+      									</th>
+      									<th>
+      										 S
+      									</th>
+      									<th>
+      										 M
+      									</th>
+      									<th>
+      										 L
+      									</th>
+                        <th>
+      										 XL
+      									</th>
+                        <th>
+      										 2XL
+      									</th>
+      								</tr>
+      								</thead>
+      								<tr>
+      									<td>
+      										唛架比例
+      									</td>
+      									<td>
+      										3
+      									</td>
+      									<td>
+      										3
+      									</td>
+      									<td>
+      										3
+      									</td>
+      									<td>
+      										3
+      									</td>
+                        <td>
+                          4
+                        </td>
+                        <td>
+                          3
+                        </td>
+      								</tr>
+                      <tr>
+      									<td>
+      										计划层数
+      									</td>
+      									<td>
+      										70
+      									</td>
+      									<td>
+      										229
+      									</td>
+      									<td>
+      										284
+      									</td>
+      									<td>
+      										218
+      									</td>
+                        <td>
+                          76
+                        </td>
+                        <td>
+                          5
+                        </td>
+      								</tr>
+      								</table>
+      							</div>
                   </div>
               </div>
           </div>
@@ -229,13 +730,17 @@
         initDetail();
     };
     function InitEvents(){
-      $(".dict_panel div.group_items>a").unbind().bind("click",function(){
-          var checked=$(this).attr("item-check");
-          if(checked && checked==="1"){
-            $(this).attr("item-check","0").removeClass("red").addClass("green").find("i").removeClass("fa-check").addClass("fa-circle-o");
-          }else{
-            $(this).attr("item-check","1").removeClass("green").addClass("red").find("i").removeClass("fa-circle-o").addClass("fa-check");
-          }
+      $("#add_chuangci").unbind().bind('click',function(ev){
+        chuangci_edit_visibchang();
+      });
+      $("#editform_btns>button[type='submit']").unbind().bind("click",function(ev){
+        //1.保存处理
+        //2.关闭
+        chuangci_edit_visibchang();
+      });
+      $("#editform_btns>button[type='button']").unbind().bind("click",function(ev){
+        //取消
+        chuangci_edit_visibchang();
       });
     }
     function InitData() {
@@ -265,5 +770,27 @@
     function getDetailData(uworkId,callFun){
       var result={state:200,data:[]};
       return result;
+    }
+    var edit_visible=false;
+    function chuangci_edit_visibchang(){
+      edit_visible=!edit_visible;
+      if(edit_visible){
+        $('#chuangci_list').css({'display':'none'});
+        $('#chuangci_edit').css({'display':'block'});
+      }else {
+        $('#chuangci_edit').css({'display':'none'});
+        $('#chuangci_list').css({'display':'block'});
+      }
+    }
+    function copy_item(){}
+    function edit_item(){}
+    function del_item(){
+      api.confirm({
+          title: '删除确认',
+          msg: '您确认要删除当前所选床次记录?',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+      });
     }
 </script>
