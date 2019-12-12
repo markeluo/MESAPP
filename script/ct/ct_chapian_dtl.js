@@ -3,18 +3,18 @@ apiready = function(){
     //$api.fixStatusBar( $api.dom('header') );
     uowrkId=api.pageParam.uworkId;
     $api.dom('.title').innerHTML = api.pageParam.title;
-
+    alert(JSON.stringify(api.pageParam.Keys));
     Metronic.init(); // init metronic core components
     InitData();
     InitEvents();
-    initDetail();
 };
-if(!apiLoaded){
-  Metronic.init(); // init metronic core components
-  InitData();
-  InitEvents();
-  initDetail();
-}
+$(document.body).ready(function(){
+  if(!apiLoaded){
+    Metronic.init(); // init metronic core components
+    InitData();
+    InitEvents();
+  }
+});
 function InitEvents(){
   $(".dict_panel div.group_items>a").unbind().bind("click",function(){
       var checked=$(this).attr("item-check");
@@ -30,12 +30,16 @@ function InitEvents(){
         // dictitems.find("i.fa").removeClass("fa-check").addClass("fa-circle-o")
         // dictitems.find("i.denum").html("");
         $(this).attr("item-check","1").removeClass("green").addClass("red");
-        $(this).find("i.denum").html("0");
+        $(this).find("i.denum").html("1");
       }
       $(this).find("i.fa").addClass("fa-check");
   });
 }
 function saveDefects(){
+  var checkdefs=[];
+  $(".dict_group").find(".group_items>a[item-check='1']").each(function(i,item){
+    checkdefs.push({dfNo:$(item).attr("dfno"),dfNum:parseInt($(item).find("i.denum").html())})
+  });
 
 }
 function clearCheckDefectsNum(){
@@ -85,15 +89,42 @@ function InitData() {
            refreshTotalInfo();
          }
     });
+    initDefects();
 }
-function initDetail(){
-  getDetailData(null,function(result){
-    if(result.state==200){
-
+function initDefects(){
+  if(sys_defects && sys_defects.length>0){
+    var defecthtml="";
+    var groupdata=defectsGroupFilter("裁床查片");
+    if(groupdata && groupdata.length>0){
+      for(var i=0;i<groupdata.length;i++){
+        defecthtml+='<div class="clearfix dict_group">';
+        defecthtml+='<h4>'+groupdata[i].group+'</h4>';
+        defecthtml+='<div class="group_items">';
+        for(var j=0;j<groupdata[i].items.length;j++){
+          defecthtml+='<a href="#" class="btn green" dfno="'+groupdata[i].items[j].DefectNo+'"><i class="fa"></i>'+groupdata[i].items[j].DefectText+'<i class="denum"></i></a>';
+        }
+        defecthtml+='</div>';
+        defecthtml+='</div>';
+      }
     }
-  });
+    defecthtml+='<div class="clearfix"></div>';
+    $(".dict_panel").html(defecthtml);
+  }
 }
-function getDetailData(uworkId,callFun){
-  var result={state:200,data:[]};
-  return result;
+function defectsGroupFilter(module){
+  var groupdata=[];//{group:"",items:[]}
+  var groupkeys=[];
+  var _tempi=-1;
+  for(var i=0;i<sys_defects.length;i++){
+    if(sys_defects[i].ModuleName==module){
+      _tempi=groupkeys.indexOf(sys_defects[i].GroupName);
+      if(_tempi>-1){
+        groupdata[_tempi].items.push(sys_defects[i]);
+      }else{
+        groupdata.push({group:sys_defects[i].GroupName,items:[sys_defects[i]]});
+        groupkeys.push(sys_defects[i].GroupName);
+      }
+    }
+  }
+  return groupdata;
 }

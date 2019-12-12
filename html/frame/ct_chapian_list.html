@@ -52,32 +52,6 @@
     }
     //款号搜索
     function styleNoSearch(){
-      // var inputField = api.require('inputField');
-      // inputField.open({
-      //     bgColor: '#708090',
-      //     lineColor: '#dcdcdc',
-      //     fileBgColor:'#FFFFFF',
-      //     borderColor:'#dcdcdc',
-      //     //sendImg: 'widget://image/check.png',
-      //     sendBtn:{
-      //          bg: '#f00',          //字符串类型；发送按钮常态背景色
-      //          //inputBg:'#ff0',      //(可选项)字符串类型；当输入文字发时送按钮的背景色；默认：bg的色值
-      //          bgHighlight: '#000', //字符串类型；发送按钮点击时的高亮背景色
-      //          title: '搜索',        //字符串类型；发送按钮的标题
-      //          titleSize: 12,       //数字类型；发送按钮的标题字体大小
-      //          titleColor: '#fff',  //字符串类型；发送按钮标题文字颜色
-      //          corner: 5,           //数字类型；发送按钮圆角大小
-      //          sendW:50,            //数字类型；发送按钮的宽
-      //          sendH:35,            //数字类型；发送按钮的高
-      //          marginRight:10,      //数字类型；发送按钮距离屏幕右边的距离，本参数暂仅支持iOS平台；默认：10
-      //     },
-      //     fixedOn: api.frameName
-      // }, function(ret, err) {
-      //     if (ret) {
-      //         alert(ret.msg);
-      //     }
-      // });
-
       var UISearchBar = api.require('UISearchBar');
       UISearchBar.open({
           placeholder: '请输入款号关键字',
@@ -241,8 +215,8 @@
           name: pagename,
           url: './'+pagename+'.html',
           pageParam: {
-              uworkId: item["uid"],
-              title:'批次:'+item["title"]+' ##'+item["subTitle"]
+              Keys:data[item["uid"]],
+              title:item["title"]+' | '+item["subTitle"]
          },
          animation:{
             type:"fade",                //动画类型（详见动画类型常量）
@@ -251,21 +225,22 @@
         }
       });
     }
+    var data=[];
     function getListData(styleNo,groupId,callFun){
       /*获取数据库数据*/
-      var data=[
-        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'1',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G01',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:29,CutQty:28},
-        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'2',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:234,CutQty:234},
-        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'5',ColorCode:'011',CPO:'NIK19100976',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:31,CutQty:31},
-        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'6',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:368,CutQty:367},
-    ]
+      data=[
+        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'1',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G01',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:29,CutQty:28},
+        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'2',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:234,CutQty:234},
+        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'5',ColorCode:'011',CPO:'NIK19100976',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:31,CutQty:31},
+        {CutPartsId:1,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'6',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:368,CutQty:367},
+      ]
     var result={state:200,data:[]};
     for(var i=0;i<data.length;i++){
       result.data.push({
-        uid: data[i].LBNo+'##'+data[i].BedNo+"##"+data[i].CPO,
+        uid: 0,
         imgPath: '',
         title:data[i].CPO+'   床次：'+data[i].BedNo,
-        subTitle: '款号：'+data[i].BUY+'-'+data[i].StyleNo+'   颜色:'+data[i].ColorCode+'   裁剪量:'+data[i].BundleQty+'   目标量:'+data[i].CutQty,
+        subTitle: ' | 款号：'+data[i].BUY+'-'+data[i].StyleNo+' | 颜色:'+data[i].ColorCode+' | 裁剪量:'+data[i].BundleQty+' | 目标量:'+data[i].CutQty,
         remark:data[i].LineName,
         icon: 'widget://image/process.png'
       });

@@ -10,10 +10,10 @@
     <meta content="" name="author" />
     <title>FQC</title>
     <link rel="stylesheet" type="text/css" href="../../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
     <!-- BEGIN 全局统一样式 -->
     <link rel="stylesheet" href="../../lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../../lib/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+    <link href="../../lib/metronic/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
     <!-- END 全局统一样式 -->
     <!-- BEGIN 主题风格 -->
     <link rel="stylesheet" href="../../lib/metronic/assets/global/css/components.css"/>
@@ -35,7 +35,7 @@
           padding:10px;
           -webkit-box-flex:1;}
         .dict_group{}
-        .group_items>a.btn + .btn{margin-left:0px;}
+        .group_items>a.btn{margin-left:5px;}
         .group_items>a{
           /*font-size:18px;*/
           margin-top:5px;
@@ -63,6 +63,14 @@
         div.form-group>input.input-xsmall{font-size:24px;}
         div.form-group>a.btn.btn-icon-only{font-size: 24px;padding: 0px;display: inline;}
         /*menupanel end*/
+        .remark_panel{
+          margin-top:100px;
+          padding:10px;
+          border-top:1px solid #eee;
+        }
+        .remark_panel>.form-group>div.nospace{
+          padding:0px;
+        }
     </style>
 </head>
 <body>
@@ -93,29 +101,25 @@
                       <a href="javascript:;" class="btn green"><i class="fa"></i>破洞<i class="denum"></i></a>
                       <a href="javascript:;" class="btn green"><i class="fa"></i>残片<i class="denum"></i></a>
                       <a href="javascript:;" class="btn green"><i class="fa"></i>纱结<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>布痕、折痕<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>色纤、飞花<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>面料脏迹<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>面料其它<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>匹印不良<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>色差、段查<i class="denum"></i></a>
                   </div>
               </div>
-              <div class="clearfix dict_group">
-                  <h4>裁剪问题</h4>
-                  <div class="group_items">
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>脏迹<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>布边<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>少数<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>裁片不规则<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>剪口偏深<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>编号错误<i class="denum"></i></a>
-                      <a href="javascript:;" class="btn green"><i class="fa"></i>裁剪其它<i class="denum"></i></a>
-                  </div>
-              </div>
-              <div class="clearfix">
-
-              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="remark_panel">
+              <div class="form-group">
+								<div class="col-md-2 nospace"><h4>换片状态</h4></div>
+								<div class="col-md-10 nospace">
+									<input type="checkbox" checked class="make-switch" data-on-text="已换片" data-off-text="未换片" data-on-color="success" data-off-color="danger">
+								</div>
+                <div class="clearfix"></div>
+							</div>
+              <div class="form-group">
+								<div class="col-md-2 nospace"><h4>备注</h4></div>
+								<div class="col-md-10 nospace">
+									<textarea class="form-control" rows="3"></textarea>
+								</div>
+                <div class="clearfix"></div>
+							</div>
             </div>
           </div>
           <div class="menupanel">
@@ -227,6 +231,8 @@
 <script src="../../lib/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../lib/metronic/assets/global/plugins/jquery-knob/js/jquery.knob.js"></script>
 <script src="../../lib/metronic/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../lib/metronic/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../res/sys_defects.json"></script>
 <script type="text/javascript" src="../../script/ct/ct_chapian_dtl.js"></script>
