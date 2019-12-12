@@ -6,45 +6,256 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>fixedPane</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <!-- BEGIN 全局统一样式 -->
+    <link rel="stylesheet" href="../lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../lib/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+    <!-- END 全局统一样式 -->
+    <!-- BEGIN 主题风格 -->
+    <link rel="stylesheet" href="../lib/metronic/assets/global/css/components.css"/>
+    <!-- END 主题风格 -->
     <style>
         html, body {
-            background-color: #dfdede;
+            background-color: #ffffff;
+            width: 100%;
+            height: 100%;
+        }
+        .mandiv{
+          width: 100%;
+          height: 100%;
+          display: -webkit-box;
+          display: -moz-box;
+          display: box;
+        }
+        .leftnav{
+           width:240px;
+           background-color:#364150;
+        }
+        .contentpanel{
+          padding:50px;
+          padding-right:100px;
+          -webkit-box-flex:1;
+          -moz-box-flex:1;
+          box-flex:1;
         }
         li {
             padding: 3px 10px;
             border-bottom: 1px solid #d4d3d3;
         }
-        .active {
-            background-color: #3ABA63;
-        }
         li>a{
             display: block;
             padding: 10px 30px;
-            font-size: 24px;
+            font-size: 16px;
+            color:#ffffff;
+            text-decoration:none;
+        }
+        li>a>i{
+          margin-right:15px;
+        }
+        li>a:active{
+          text-decoration:none;
+        }
+        li>a:hover{
+          text-decoration:none;
         }
     </style>
 </head>
 <body>
-<nav>
-    <ul>
-        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="user"><a class="home">个人信息</a></li>
-        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="lbd"><a class="nav1">拉布单</a></li>
-        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="fqc"><a class="nav1">FQC</a></li>
-        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="dt"><a class="nav2">大烫</a></li>
-        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="bz"><a class="nav3">包装</a></li>
-        <li tapmode="liActive" onclick="randomSwitchBtn(this)" value="sf"><a class="nav4">收发</a></li>
-    </ul>
-</nav>
+<div class="mandiv">
+  <div class="leftnav">
+    <nav>
+        <ul>
+            <li tapmode="liActive" onclick="groupSwitch(this)" group="ct"><a ><i class="fa fa-crop"></i>裁床</a></li>
+            <li tapmode="liActive" onclick="groupSwitch(this)" group="pe"><a><i class="fa fa-empire"></i>印绣花</a></li>
+            <li tapmode="liActive" onclick="groupSwitch(this)" group="sm"><a><i class="fa fa-male"></i>车间</a></li>
+            <li tapmode="liActive" onclick="groupSwitch(this)" group="wb"><a><i class="fa fa-cubes"></i>尾部</a></li>
+            <li tapmode="liActive" onclick="groupSwitch(this)" group="ck"><a><i class="fa fa-home"></i>仓库</a></li>
+        </ul>
+    </nav>
+  </div>
+  <div class="contentpanel">
+    <div group="ct">
+      <div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="ct_chapian_list">
+					<div class="dashboard-stat blue-madison">
+						<div class="visual">
+							<i class="fa fa-building"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 查片
+							</div>
+							<div class="desc">
+								 品检、疵品记录
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="lbd">
+					<div class="dashboard-stat red-intense">
+						<div class="visual">
+							<i class="fa fa-bar-chart-o"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 QA报告
+							</div>
+							<div class="desc">
+								 提交裁床检验报告
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="fqc">
+					<div class="dashboard-stat green-haze">
+						<div class="visual">
+							<i class="fa fa-shopping-cart"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 配片
+							</div>
+							<div class="desc">
+								 车缝疵片交回裁床换片
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="lbd">
+					<div class="dashboard-stat purple-plum">
+						<div class="visual">
+							<i class="fa fa-globe"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 拉布上报
+							</div>
+							<div class="desc">
+								 实际拉布层数和用量
+							</div>
+						</div>
+					<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+			</div>
+    </div>
+    <div group="pe">
+      <div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="peparts">
+					<div class="dashboard-stat blue-madison">
+						<div class="visual">
+							<i class="fa fa-building"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 印绣花查片
+							</div>
+							<div class="desc">
+								 印绣花片品检记录
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="peqa">
+					<div class="dashboard-stat red-intense">
+						<div class="visual">
+							<i class="fa fa-bar-chart-o"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 印绣花报告
+							</div>
+							<div class="desc">
+								 提交印绣花片检验报告
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+			</div>
+    </div>
+    <div group="sm">
+      <div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="sm_fqc_list">
+					<div class="dashboard-stat blue-madison">
+						<div class="visual">
+							<i class="fa fa-building"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 FQC
+							</div>
+							<div class="desc">
+								 烫前、烫后查
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="datang">
+					<div class="dashboard-stat red-intense">
+						<div class="visual">
+							<i class="fa fa-bar-chart-o"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 大烫
+							</div>
+							<div class="desc">
+								 大烫产量录入
+							</div>
+						</div>
+						<a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+					</div>
+				</div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" onclick="randomSwitchBtn(this)" value="baozhuang">
+          <div class="dashboard-stat green-haze">
+            <div class="visual">
+              <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+              <div class="number">
+                 包装
+              </div>
+              <div class="desc">
+                 车缝下线后的成衣包装
+              </div>
+            </div>
+            <a class="more" href="javascript:;">ADD REPORT<i class="m-icon-swapright m-icon-white"></i></a>
+          </div>
+        </div>
+			</div>
+    </div>
+    <div group="wb"></div>
+    <div group="ck"></div>
+  </div>
+</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script src="../lib/metronic/assets/global/plugins/jquery.min.js"></script>
 <script>
+var pages=[
+  {name:"ct_chapian_list",title:"裁床查片"},
+  {name:"sm_fqc_list",title:"FQC查"},
+];
 apiready = function () {
     api.setStatusBarStyle({
         style: 'dark',
         color: '#000'
     });
     $api.fixStatusBar($api.dom('nav'));
+    groupSwitch($("div.leftnav li[group='ct']"));
 };
+function groupSwitch(tag){
+  $("div.leftnav li").css({"background-color":"#364150"}).find("a").css({"color":"#FFFFFF"});
+  $(".contentpanel>div").hide();
+  $(tag).find("a").css({"color":"#666666"});
+  var group=$(tag).css({"background-color":"#FFFFFF"}).attr("group");
+  $('.contentpanel>div[group='+group+']').show();
+}
 // 随意切换按钮
 function randomSwitchBtn( tag ) {
     if( tag == $api.dom('nav li.active') )return;
@@ -59,13 +270,29 @@ function randomSwitchBtn( tag ) {
     }
     $api.addCls( eHeaderLis[index], 'active');
     var pagename=$api.attr(tag,"value");
-    api.openWin({
-        name: pagename,
-        url: './frame/'+pagename+'.html',
-        pageParam: {
-            name: pagename
-       }
-    });
+    var pageinfo=getpageInfo(pagename);
+    if(pageinfo!=null && pageinfo.name && pageinfo.name!=""){
+      api.openWin({
+          name: pageinfo.name,
+          url: './frame/'+pageinfo.name+'.html',
+          pageParam: pageinfo
+      });
+    }else{
+      api.alert({
+        title: '错误',
+        msg: '模块/页面不存在,请联系管理员!'
+      });
+    }
+}
+function getpageInfo(pagename){
+  var page=null;
+  for(var i=0;i<pages.length;i++){
+    if(pages[i].name==pagename){
+      page=pages[i];
+      break;
+    }
+  }
+  return page;
 }
 </script>
 </html>

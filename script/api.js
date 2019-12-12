@@ -587,3 +587,11 @@
     window.$api = u;
 
 })(window);
+var apiLoaded=false;
+try{
+  if(api){
+    apiLoaded=true;
+  }
+}catch(ex){
+  apiLoaded=false;
+}

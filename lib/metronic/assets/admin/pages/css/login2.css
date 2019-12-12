@@ -7,7 +7,7 @@ Login page
 ***/
 /* bg color */
 .login {
-  background-color: #5c97bd;
+  background-color: #FFFFFF;
 }
 .login a {
   color: #edf4f8 !important;
@@ -30,13 +30,13 @@ Login page
 }
 
 .login .form-title {
-  color: #edf4f8;
+  color: #666666;
   font-size: 19px;
   font-weight: 400 !important;
 }
 
 .login .form-subtitle {
-  color: #c9dce9;
+  color: #202b32;
   font-size: 17px;
   font-weight: 300 !important;
   padding-left: 10px;
@@ -61,10 +61,11 @@ Login page
 
 .login .content .form-control {
   border: none;
-  background-color: #6ba3c8;
-  border: 1px solid #6ba3c8;
+  background-color: #7489a4;
+  border: 1px solid #7489a4;
   height: 43px;
-  color: #d9ecf9;
+  color: #FFFFFF;
+  font-size:18px;
 }
 .login .content .form-control:focus, .login .content .form-control:active {
   border: 1px solid #83b8db;
@@ -159,23 +160,24 @@ Login page
 
 .login .content .form-actions .btn {
   margin-top: 1px;
+  font-size: 18px;
 }
 
 .login .btn-primary {
-  background-color: #5995bb;
+  background-color: #29323f;
   border: 1px solid #72a9cc;
-  color: #8fc4e5;
+  color: #FFFFFF;
   font-weight: 600;
   padding: 10px 25px !important;
 }
 .login .btn-primary:hover {
   border: 1px solid #90bbd7;
-  background-color: #5995bb;
+  background-color: #29323f;
   color: #8fc4e5;
 }
 
 .login .btn-default {
-  background-color: #5995bb;
+  background-color: #29323f;
   border: 1px solid #72a9cc;
   color: #8fc4e5;
   font-weight: 600;
@@ -183,7 +185,7 @@ Login page
 }
 .login .btn-default:hover {
   border: 1px solid #90bbd7;
-  background-color: #5995bb;
+  background-color: #29323f;
   color: #8fc4e5;
 }
 
@@ -207,7 +209,7 @@ Login page
 
 .login .content .create-account p a {
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   color: #ffffff;
 }
 

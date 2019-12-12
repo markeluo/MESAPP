@@ -32,7 +32,7 @@
 <script type="text/javascript">
     apiready = function(){
         //$api.fixStatusBar($api.dom('header'));
-        $api.dom('.title').innerHTML = api.pageParam.name;
+        $api.dom('.title').innerHTML = api.pageParam.title;
         initList();
     };
 
@@ -236,7 +236,7 @@
       });
     }
     function editDetail(item){
-      var pagename="lbd_detail";
+      var pagename="ct_chapian_dtl";
       api.openWin({
           name: pagename,
           url: './'+pagename+'.html',
@@ -252,35 +252,24 @@
       });
     }
     function getListData(styleNo,groupId,callFun){
-      var result={state:200,data:[{
-          uid: '1001',
-          imgPath: 'widget://res/img/apicloud.png',
-          title: 'LB000001',
-          subTitle: '款号：201905BUY-CK1358   颜色:010',
-          remark: '主身',
-          icon: 'widget://image/process.png'
-      }, {
-        uid: '1002',
-        imgPath: 'widget://res/img/apicloud.png',
-        title: 'LB000002',
-        subTitle: '款号：201905BUY-CK1346   颜色:010',
-        remark: '主身',
+      /*获取数据库数据*/
+      var data=[
+        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'1',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G01',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:29,CutQty:28},
+        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'2',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:234,CutQty:234},
+        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'5',ColorCode:'011',CPO:'NIK19100976',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:31,CutQty:31},
+        {LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'6',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:368,CutQty:367},
+    ]
+    var result={state:200,data:[]};
+    for(var i=0;i<data.length;i++){
+      result.data.push({
+        uid: data[i].LBNo+'##'+data[i].BedNo+"##"+data[i].CPO,
+        imgPath: '',
+        title:data[i].CPO+'   床次：'+data[i].BedNo,
+        subTitle: '款号：'+data[i].BUY+'-'+data[i].StyleNo+'   颜色:'+data[i].ColorCode+'   裁剪量:'+data[i].BundleQty+'   目标量:'+data[i].CutQty,
+        remark:data[i].LineName,
         icon: 'widget://image/process.png'
-      }, {
-        uid: '1002',
-        imgPath: 'widget://res/img/apicloud.png',
-        title: 'LB000003',
-        subTitle: '款号：201905BUY-CK1346   颜色:010',
-        remark: '主身',
-        icon: 'widget://image/process.png'
-      }, {
-        uid: '1002',
-        imgPath: 'widget://res/img/apicloud.png',
-        title: 'LB000004',
-        subTitle: '款号：201905BUY-CK1346   颜色:100',
-        remark: '主身',
-        icon: 'widget://image/succed.png'
-      }]}
+      });
+    }
       if(styleNo==null && groupId==null){
         //获取所有数据
         callFun(result);
