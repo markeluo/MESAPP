@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <title>FQC</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
+    <!-- BEGIN 全局统一样式 -->
+    <link rel="stylesheet" href="../../../lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../../../lib/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+    <!-- END 全局统一样式 -->
+    <!-- BEGIN 主题风格 -->
+    <link rel="stylesheet" href="../../../lib/metronic/assets/global/css/components.css"/>
+    <!-- END 主题风格 -->
+    <style>
+        header{ background-color: #FCFCFC;line-height: 60px; height: 60px;  position: relative; }
+        header b{width:60px;height: 60px;height: 100%; display: inline-block; position: relative; z-index: 1; background: url() no-repeat center; background-size:40px 40px;  }
+        header b.ic-back{ background-image: url(../../../image/back.png); }
+        header b.ic-sysn{ float: right;width:100px;}
+        header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px;  }
+
+        html,body{display:-webkit-box;display:-moz-box;display: box;width: 100%;height:100%;padding: 0px;}
+        #wrap{-webkit-box-flex: 1;-moz-box-flex: 1;box-flex: 1;}
+        .maindiv{background-color:#F1F3FA;-webkit-box-flex:1;padding:20px;display: -webkit-box;display:-moz-box;display: box;height: 100%;}
+        #ReportTab>tbody>tr>td{font-size: 14px;}
+    </style>
+</head>
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical" >
+        <header class="border-b" >
+            <b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>
+            <div class="title"></div>
+            <b tapmode="hover" onclick="sysnUpload();"  class="ic-sysn"><a tapmode="hover" class="btn btn-circle green btn-sm"><i class="fa fa-upload"></i> 同步数据</a></b>
+        </header>
+        <div id="main" class="maindiv flex-con" >
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-hover table-light" id="ReportTab">
+                    <thead>
+                    <tr class="uppercase">
+                        <th colspan="2">分类</th>
+                        <th>目标总数</th>
+                        <th>合格数</th>
+                        <th>疵品数</th>
+                        <th>疵品率</th>
+                        <th>保存时间</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../lib/metronic/assets/global/plugins/respond.min.js"></script>
+<script src="../../../lib/metronic/assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../lib/metronic/assets/global/plugins/jquery.min.js"></script>
+<script src="../../../lib/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- END CORE PLUGINS -->
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/common.js"></script>
+<script type="text/javascript" src="../../../script/localstore.js"></script>
+<script type="text/javascript" src="../../../script/user/user.js"></script>
+<script type="text/javascript" src="../../../res/sys_defects.json"></script>
+<script type="text/javascript">
+apiready = function(){
+    //$api.fixStatusBar( $api.dom('header') );
+    $api.dom('.title').innerHTML ="裁床查片-报表数据";
+    InitData();
+    InitEvents();
+};
+
+function InitData(){
+    GetCache();
+    var tabData=FilterReportData(CacheDatas);
+    var bodyhtml="";
+    tabData.forEach(element => {
+        bodyhtml+=formatTableRow(element.data);
+    });
+    $("#ReportTab>tbody").html(bodyhtml);
+}
+
+function formatTableRow(_itemdata){
+    var defs=0;
+    _itemdata.defects.forEach(element => {
+       defs+=element.dfNum;
+    });
+    var ihtml="<tr>";
+    ihtml+='<td class="fit"><img class="user-pic" src="../../../image/items/01.png"></td>';
+    ihtml+='<td><a href="javascript:;" class="primary-link">裁床查片</a></td>';
+    ihtml+='<td>'+(_itemdata.okNum+defs)+'</td>';
+    ihtml+='<td>'+_itemdata.okNum+'</td>';
+    ihtml+='<td>'+defs+'</td>';
+    ihtml+='<td><span class="bold font-red">'+(parseInt(defs/(_itemdata.okNum+defs)*100))+'%</span></td>';
+    ihtml+='<td>'+_itemdata.cktime+'</td>';
+    if(_itemdata.syn){
+        ihtml+='<td><span class="label label-sm label-success">已上传</span></td>';
+    }else{
+        ihtml+='<td><span class="label label-sm label-danger">未上传</span></td>';
+    }
+    ihtml+='</tr>';
+    return ihtml;
+}
+
+function sysnUpload(){
+    api.showProgress({title:'提示',text:'数据同步中...',modal: true});
+    SysnCache(function(_result){
+        InitData();
+        api.hideProgress();
+    })
+}
+
+/*缓存数据处理 start---------------*/
+var CacheDatas=null;
+function GetCache(){
+  if(CacheDatas==null){
+    CacheDatas=LocalStore.getData("ct_chapian_dtl");
+  }
+  if(isBlank(CacheDatas)){
+    CacheDatas=[];
+  }
+  return CacheDatas;
+}
+//缓存数据筛选-今天缓存+今天之前未同步的缓存
+function FilterReportData(_cachedata){
+  var filterdata=[];
+  _cachedata.forEach(element => {
+    if(element.syn && parseInt((Date.parse(new Date())-Date.parse(element.cktime))/1000/60/60)>=24){}else{
+        filterdata.push(element);
+    }
+  });
+  return filterdata;
+}
+
+//同步缓存数据到服务器--后台处理，不影响界面操作
+function SysnCache(callfun){
+    GetCache();
+    var NoSynItems=[];
+    CacheDatas.forEach(element => {
+        if(!element.data.syn){NoSynItems.push(element);}
+    });
+    api.showProgress({title:'已同步 0/'+NoSynItems.length,text:'数据同步中...',modal: true});
+    if(NoSynItems!=null && NoSynItems.length>0){
+        var thisindex=0;
+        NoSynItems.forEach(element => {
+            dataUpload(element,function(_result){
+                if(_result.code==200){
+                    element.data.syn=true;
+                }
+                thisindex++;
+                api.showProgress({title:'已同步 '+thisindex+'/'+NoSynItems.length,text:'数据同步中...',modal: true});
+                if(thisindex>=NoSynItems.length){
+                    LocalStore.setData("ct_chapian_dtl",CacheDatas);
+                    LocalStore.removeStaleData("ct_chapian_dtl");
+                    callfun({code:200,data:null,msg:"同步完成"});
+                }
+            });
+        });
+    }else{
+        callfun({code:200,data:null,msg:"同步完成"});
+    }
+}
+function dataUpload(data,callfun){
+    //请求服务器进行数据保存
+    callfun({code:200,data:data,msg:"上传成功"});
+}
+/*缓存数据处理 end*/
+</script>

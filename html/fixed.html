@@ -238,8 +238,8 @@
 <script src="../lib/metronic/assets/global/plugins/jquery.min.js"></script>
 <script>
 var pages=[
-  {name:"ct_chapian_list",title:"裁床查片"},
-  {name:"sm_fqc_list",title:"FQC查"},
+  {name:"ct_chapian_list",title:"裁床查片",url:"ct/ct_chapian_list"},
+  {name:"sm_fqc_list",title:"FQC查",url:"ms/sm_fqc_list"},
 ];
 apiready = function () {
     api.setStatusBarStyle({
@@ -274,7 +274,7 @@ function randomSwitchBtn( tag ) {
     if(pageinfo!=null && pageinfo.name && pageinfo.name!=""){
       api.openWin({
           name: pageinfo.name,
-          url: './frame/'+pageinfo.name+'.html',
+          url: './frame/'+pageinfo.url+'.html',
           pageParam: pageinfo
       });
     }else{

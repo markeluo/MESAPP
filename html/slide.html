@@ -82,6 +82,9 @@
         a.primary-link{
             color: #65A0D0 !important;
         }
+        .login>div.login_panel{
+          display: none;
+        }
     </style>
 </head>
 <body class="login">
@@ -460,8 +463,7 @@
     }
   }
   function LoadDashBoard(){
-      $(".login_panel").hide();
-
+      $(".login_panel").hide(); 
       taskdata=[
         {Time:1576114225000,ModuleName:"ct_chapian_dtl",Title:"CPO：NIK20011336 | 颜色：010 | 床次：21-21",okNum:560,defectNum:42,State:1},
         {Time:1576112112000,ModuleName:"ct_chapian_dtl",Title:"CPO：NIK20030006 | 颜色：011 | 床次：1-1",okNum:867,defectNum:13,State:1},
