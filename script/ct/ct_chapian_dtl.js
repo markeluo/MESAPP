@@ -190,7 +190,7 @@ function InitData() {
         'thickness': 0.2,
         'tickColorizeValues': true,
         'skin': 'tron',
-        'width':'80%',
+        'width':'140%',
          'release':function(e){
            refreshTotalInfo();
          }

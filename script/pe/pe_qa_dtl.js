@@ -1,5 +1,6 @@
 var pagekey=null;
 var pageKeys=null;
+var ModuleName="ct_chapian_dtl";
 apiready = function(){
     //$api.fixStatusBar( $api.dom('header') );
     $api.dom('.title').innerHTML = api.pageParam.title;
@@ -203,20 +204,24 @@ var newRecordInfo=null;
 function open_add(){
   var UIActionSelector = api.require('UIActionSelector');
   var stepnums=[];
+  var petypes=["无缝贴合","绣花","印花","绣花+印花"];
   var steps=["首床","巡检","配套"];
   var cslist=["/","第一次","第二次","第三次","第四次","第五次","第六次","第七次","第八次","第九次","第十次"];
-  steps.forEach(el=>{
+  petypes.forEach(el=>{
     stepnums.push({"name":el,"sub":[]});
-    cslist.forEach(el2=>{
-      stepnums[stepnums.length-1].sub.push({"name":el2});
-    })
-  });
+    steps.forEach(el1=>{
+      stepnums[stepnums.length-1].sub.push({"name":el1,"sub":[]});
+      cslist.forEach(el2=>{
+        stepnums[stepnums.length-1].sub[stepnums[stepnums.length-1].sub.length-1].sub.push({"name":el2});
+      })
+    });
+  })
 
   UIActionSelector.open({
       datas:stepnums,
       layout: {
           row: 5,
-          col: 2,
+          col: 3,
           height:50,
           size: 16,
           sizeActive: 20,
@@ -260,16 +265,19 @@ function open_add(){
   }, function(ret, err) {
       if (ret && ret.eventType=="ok" && ret.selectedInfo && ret.selectedInfo.length>0) {
         newRecordInfo={
-          Step:ret.selectedInfo[0].name,
-          SortName:ret.selectedInfo[1].name,
+          PEType:ret.selectedInfo[0].name,
+          QAStep:ret.selectedInfo[1].name,
+          SortName:ret.selectedInfo[2].name
         }
-        addRecords(newRecordInfo);
+        initNewRecord(newRecordInfo);
       }
   });
 }
-//新增新检验报告记录
-function addRecords(_recordInfo){
-  panel_switch(true);
+function initNewRecord(reInfo){
+    var html="全单数：724 | 检验类型："+reInfo.PEType+" | 检验阶段："+reInfo.QAStep+" | 检验次数:"+reInfo.SortName;
+    $("#newRecordTitle").html(html);
+    
+    panel_switch(true);
 }
 
 //显示面板切换
@@ -425,9 +433,11 @@ function formatRecordItem(_RowData,rowNum){
   rowHTML+='<td>'+rowNum+'</td>';
   rowHTML+='<td>'+_RowData.CPO+'</td>';
   rowHTML+='<td>'+_RowData.ColorCode+'</td>';
+  rowHTML+='<td>'+_RowData.BatchNo+'</td>';
   rowHTML+='<td>'+_RowData.BedNo+'</td>';
   rowHTML+='<td>'+_RowData.LineName+'</td>';
-  rowHTML+='<td>'+_RowData.Qty+'</td>';
+  rowHTML+='<td>'+_RowData.TargetQty+'</td>';
+  rowHTML+='<td>'+_RowData.PEType+'</td>';
   rowHTML+='<td>'+_RowData.QAStep+'</td>';
   rowHTML+='<td>'+_RowData.SortName+'</td>';
   rowHTML+='<td>'+_RowData.CreateTime+'</td>';
@@ -484,24 +494,11 @@ function defectsGroupFilter(module){
   return groupdata;
 }
 
-function openReport(){
-  api.openWin({
-      name:"ct_chapian_report",
-      url: './ct_chapian_report.html',
-      pageParam: {},
-     animation:{
-        type:"fade",                //动画类型（详见动画类型常量）
-        subType:"from_right",       //动画子类型（详见动画子类型常量）
-        duration:200                //动画过渡时间，默认300毫秒
-    }
-  });
-}
-
 /*缓存数据处理 start---------------*/
 var CacheDatas=null;
 function GetCache(){
   if(CacheDatas==null){
-    CacheDatas=LocalStore.getData("ct_chapian_dtl");
+    CacheDatas=LocalStore.getData(ModuleName);
   }
   if(isBlank(CacheDatas)){
     CacheDatas=[];
@@ -535,7 +532,7 @@ function AddCache(data,callfun){
     }else{
       CacheDatas.push({key:data.key,data:data});
     }
-    LocalStore.setData("ct_chapian_dtl",CacheDatas);
+    LocalStore.setData(ModuleName,CacheDatas);
     SysnCache();
     callfun({code:200,msg:"保存成功!",data:null});
   }catch(e){
@@ -559,8 +556,8 @@ function SysnCache(){
               }
               thisindex++;
               if(thisindex>=NoSynItems.length){
-                  LocalStore.setData("ct_chapian_dtl",CacheDatas);
-                  LocalStore.removeStaleData("ct_chapian_dtl");
+                  LocalStore.setData(ModuleName,CacheDatas);
+                  LocalStore.removeStaleData(ModuleName);
               }
           });
       });
@@ -573,49 +570,67 @@ function DAL_GetRecords(keys,callfun){
   //请求服务器获取检验次数数据
   var data=[
     {
-      "ID": "1",
-      "LBNo": "LB000001",
-      "LineCode": "CJM11F01",
-      "LineName": "鹰美A组",
-      "BUY": "201907",
-      "ShiftNo": "N",
-      "StyleNo": "CJ5155",
-      "CPO": "NIK19091101",
-      "ColorCode": "010",
-      "BedNo": "1",
-      "BatchNo": "AJ2010",
-      "Usable": "1",
-      "CreateTime": "2019/12/19 13:24:21",
-      "Creator": "Admin-管理员",
-      "KaiCaiState": "1",
-      "CaiJianState": "1",
-      "TangBiaoState": "1",
-      "ChiCunState": "1",
-      "QAStep": "巡检",
-      "SortName": "第四次",
-      "Qty":258
+        "ID": "2",
+        "LBNo": "LB000001",
+        "LineCode": "CJM11F01",
+        "LineName": "鹰美A组",
+        "BUY": "201907",
+        "ShiftNo": "SF001",
+        "StyleNo": "CJ5155",
+        "CPO": "NIK19091101",
+        "ColorCode": "010",
+        "BedNo": "1",
+        "BatchNo": "AJ2010",
+        "TargetQty": "16003",
+        "VerifyQty": "0",
+        "DefectQty": "0",
+        "OkQty": "0",
+        "Remark": "",
+        "Usable": "1",
+        "CreateTime": "19/12/2019 15:16:44",
+        "Creator": "Admin-管理员",
+        "EditTime": "",
+        "Editor": "",
+        "CheckState": "1",
+        "CheckRemark": "",
+        "CheckMan": "1",
+        "CheckTime": "19/12/2019 15:23:13",
+        "TieHeState": "1",
+        "ChicunState": "1",
+        "PEType": "印花",
+        "QAStep": "首扎",
+        "SortName": "第一次"
     },{
-      "ID": "2",
-      "LBNo": "LB000001",
-      "LineCode": "CJM11F01",
-      "LineName": "鹰美A组",
-      "BUY": "201907",
-      "ShiftNo": "N",
-      "StyleNo": "CJ5155",
-      "CPO": "NIK19091101",
-      "ColorCode": "010",
-      "BedNo": "1",
-      "BatchNo": "AJ2010",
-      "Usable": "1",
-      "CreateTime": "2019/12/19 13:24:21",
-      "Creator": "Admin-管理员",
-      "KaiCaiState": "1",
-      "CaiJianState": "1",
-      "TangBiaoState": "1",
-      "ChiCunState": "1",
-      "QAStep": "巡检",
-      "SortName": "第一次",
-      "Qty":258
+        "ID": "2",
+        "LBNo": "LB000001",
+        "LineCode": "CJM11F01",
+        "LineName": "鹰美A组",
+        "BUY": "201907",
+        "ShiftNo": "SF001",
+        "StyleNo": "CJ5155",
+        "CPO": "NIK19091101",
+        "ColorCode": "010",
+        "BedNo": "1",
+        "BatchNo": "AJ2010",
+        "TargetQty": "16003",
+        "VerifyQty": "0",
+        "DefectQty": "0",
+        "OkQty": "0",
+        "Remark": "",
+        "Usable": "1",
+        "CreateTime": "19/12/2019 15:16:44",
+        "Creator": "Admin-管理员",
+        "EditTime": "",
+        "Editor": "",
+        "CheckState": "1",
+        "CheckRemark": "",
+        "CheckMan": "1",
+        "CheckTime": "19/12/2019 15:23:13",
+        "TieHeState": "1",
+        "ChicunState": "1",
+        "PEType": "印花",
+        "QAStep": "尾期",
+        "SortName": "第四次"
     }
   ];
   callfun({code:200,data:data,msg:"上传成功"});
