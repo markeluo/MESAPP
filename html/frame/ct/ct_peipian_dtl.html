@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-    <title>FQC</title>
+    <title>配片-详情</title>
     <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
     <!-- BEGIN 全局统一样式 -->
     <link rel="stylesheet" href="../../../lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
@@ -26,14 +26,15 @@
         header .title{ position: absolute; left: 0; bottom: 0; right: 0;  text-align: center; font-size: 18px;  }
 
         html,body{display:-webkit-box;width: 100%;height:100%;padding: 0px;}
+        #wrap{-webkit-box-flex: 1;}
         .maindiv{background-color:#F1F3FA;-webkit-box-flex:1;padding:20px;display: -webkit-box;height: 100%;}
         .dictlist.portlet.light.bordered{border-width:0px !important;}
         /*dictlist start*/
         .dictlist{
+          -webkit-box-flex:3;
           background-color:#FFFFFF;
           padding:10px;
-          -webkit-box-flex:1;
-        }
+          -webkit-box-flex:1;}
         .dict_group{}
         .group_items>a.btn{margin-left:5px;}
         .group_items>a{
@@ -91,6 +92,9 @@
       .form-group>input[type='number'].form-control.input-xsmall{
         padding:0px;
       }
+      span.font-larg{
+        font-size: 18px;
+      }
     </style>
 </head>
 <body>
@@ -104,7 +108,7 @@
             <div class="portlet-title">
                 <div class="caption caption-md">
                     <i class="icon-bar-chart theme-font hide"></i>
-                    <span class="caption-subject theme-font bold uppercase">疵品计数</span>
+                    <span class="caption-subject theme-font bold uppercase">配片计数</span>
                 </div>
                 <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -125,13 +129,6 @@
               <div class="clearfix"></div>
             </div>
             <div class="remark_panel">
-                <div class="form-group">
-                    <div class="col-md-2 nospace"><h4>换片状态</h4></div>
-                    <div class="col-md-10 nospace">
-                        <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="已换片" data-off-text="未换片" data-on-color="success" data-off-color="danger">
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="form-group">
                     <div class="col-md-2 nospace"><h4>备注</h4></div>
                     <div class="col-md-10 nospace">
@@ -159,25 +156,25 @@
                       <div class="row list-separated">
                           <div class="col-md-4 col-sm-4 col-xs-6">
                               <div class="font-grey-mint font-sm">
-                                  查片总数
+                                  面料问题
                               </div>
-                              <div class="uppercase font-hg theme-font" id="totalNum">
+                              <div class="uppercase font-hg theme-font" id="fabNum">
                                   0
                               </div>
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-6">
                               <div class="font-grey-mint font-sm">
-                                  合格总数
+                                  裁剪问题
                               </div>
-                              <div class="uppercase font-hg font-purple" id="okNum">
+                              <div class="uppercase font-hg font-purple" id="cutNum">
                                   0
                               </div>
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-6">
                               <div class="font-grey-mint font-sm">
-                                  疵品总数
+                                  车缝问题
                               </div>
-                              <div class="uppercase font-hg font-red-flamingo" id="defectNum">
+                              <div class="uppercase font-hg font-red-flamingo" id="smNum">
                                   0
                               </div>
                           </div>
@@ -188,47 +185,16 @@
                   <div class="portlet-title">
                       <div class="caption caption-md">
                           <i class="icon-bar-chart theme-font hide"></i>
-                          <span class="caption-subject theme-font bold uppercase">裁片计算器</span>
+                          <span class="caption-subject theme-font bold uppercase">配片幅位</span>
                       </div>
                       <div class="actions">
-                          <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <a class="btn btn-circle green btn-sm" onclick="calcTotal()"><i class="fa fa-fax"></i> 计算</a>
-                          </div>
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                          <a class="btn btn-circle green btn-sm" onclick="changeFW()"><i class="fa fa-cog"></i> 更改</a>
+                        </div>
                       </div>
                   </div>
                   <div class="panel_item form-inline">
-                    <div class="form-group">
-                        <input type="number" class="form-control input-xsmall" id="txtTotalPS" placeholder="总片数" value="760">
-                    </div>
-                    <div class="form-group">
-                        <a href="javascript:;" class="btn btn-icon-only">=</a>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control input-xsmall" id="txtJS" placeholder="件数" value="380">
-                    </div>
-                    <div class="form-group">
-                      <a href="javascript:;" class="btn btn-icon-only">×</a>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control input-xsmall" id="txtPS" placeholder="片数" value="2">
-                    </div>
-                  </div>
-              </div>
-              <div class="portlet light bordered">
-                  <div class="portlet-title">
-                      <div class="caption caption-md">
-                          <i class="icon-bar-chart theme-font hide"></i>
-                          <span class="caption-subject theme-font bold uppercase">合格计数</span>
-                      </div>
-                      <div class="actions">
-                          <div class="btn-group btn-group-devided" data-toggle="buttons">
-                              <a class="btn btn-circle green btn-sm" onclick="okNumcalc('1')"><i class="fa fa-plus"></i> 合格</a>
-                              <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('0')"><i class="fa fa-minus"></i> 合格</a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="panel_item">
-                      <input id="okNum" class="knob" data-min="0" data-max="50000" value="0" data-fgcolor="#00bbb1">
+                      <span class="font-larg bold font-green" id="positionName">主身面料</span>
                   </div>
               </div>
           </div>
@@ -244,7 +210,6 @@
 <![endif]-->
 <script src="../../../lib/metronic/assets/global/plugins/jquery.min.js"></script>
 <script src="../../../lib/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../../lib/metronic/assets/global/plugins/jquery-knob/js/jquery.knob.js"></script>
 <script src="../../../lib/metronic/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../../lib/metronic/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
@@ -253,4 +218,5 @@
 <script type="text/javascript" src="../../../script/localstore.js"></script>
 <script type="text/javascript" src="../../../script/user/user.js"></script>
 <script type="text/javascript" src="../../../res/sys_defects.json"></script>
-<script type="text/javascript" src="../../../script/ct/ct_chapian_dtl.js"></script>
+<script type="text/javascript" src="../../../res/sys_position.json"></script>
+<script type="text/javascript" src="../../../script/ct/ct_peipian_dtl.js"></script>

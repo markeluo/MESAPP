@@ -210,13 +210,13 @@
       });
     }
     function editDetail(item){
-      var pagename="ct_chapian_dtl";
+      var pagename="pe_chapian_dtl";
       api.showProgress({title:'加载提示',text:'加载中...',modal: true});
       api.openWin({
           name: pagename,
           url: './'+pagename+'.html',
           pageParam: {
-              pageName:pagename,
+              pageName:"pe_chapian_list",
               Keys:data[item["uid"]],
               title:item["title"]+' | '+item["subTitle"]
          },

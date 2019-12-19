@@ -5,7 +5,7 @@
   var utl={}
 
   /**
-   *@method 字符串转整型 
+   *@method 字符串转整型
    *@for COM
    *@param string _obj 需要转换的字符串
    *@param string _default 默认值
@@ -22,11 +22,11 @@
     }
     return 0;
   }
- 
+
   /**
-   *@method 获取URL参数 
+   *@method 获取URL参数
    *@for COM
-   *@param name 参数名称 
+   *@param name 参数名称
    *@return STRING 参数值
   */
   utl.getUrlParaString=function(name) {
@@ -34,6 +34,29 @@
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]);
     return null;
+  }
+
+  /**
+   *@method 筛选数组对象
+   *@for COM
+   *@param array 需要筛选的大数据集
+   *@param condition 用于匹配的对象
+   *@return array 筛选后符合条件的集合
+  */
+  utl.FilterObjectArray=function(array,condition){
+    var retData=[];
+    var pstate=true;
+    for(var i=0;i<array.length;i++){
+      pstate=true;
+      for (var obj in condition) {
+        if(array[i][obj] && condition[obj]==array[i][obj]){}else{
+          pstate=false;
+          break;
+        }
+      }
+      if(pstate){retData.push(array[i]);}
+    }
+    return retData;
   }
 
   window.COM = utl;
@@ -69,4 +92,3 @@ Date.prototype.Format = function (fmt) {
 function isBlank(value) {
   return !value || !/\S/.test(value)
 }
-

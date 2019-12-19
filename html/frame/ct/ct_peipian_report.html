@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-    <title>FQC</title>
+    <title>配片-详情</title>
     <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
     <!-- BEGIN 全局统一样式 -->
     <link rel="stylesheet" href="../../../lib/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
@@ -34,7 +34,7 @@
     <div id="wrap" class="flex-wrap flex-vertical" >
         <header class="border-b" >
             <b tapmode="hover" onclick="api.closeWin();" class="ic-back"></b>
-            <div class="title"></div>
+            <div class="title">配片-数据报表</div>
             <b tapmode="hover" onclick="sysnUpload();"  class="ic-sysn"><a tapmode="hover" class="btn btn-circle green btn-sm"><i class="fa fa-upload"></i> 同步数据</a></b>
         </header>
         <div id="main" class="maindiv flex-con" >
@@ -43,10 +43,13 @@
                     <thead>
                     <tr class="uppercase">
                         <th colspan="2">分类</th>
-                        <th>目标总数</th>
-                        <th>合格数</th>
-                        <th>疵品数</th>
-                        <th>疵品率</th>
+                        <th>CPO</th>
+                        <th>款号</th>
+                        <th>组别</th>
+                        <th>颜色</th>
+                        <th>面料问题</th>
+                        <th>裁剪问题</th>
+                        <th>车缝问题</th>
                         <th>保存时间</th>
                         <th>状态</th>
                     </tr>
@@ -74,9 +77,10 @@
 <script type="text/javascript" src="../../../script/user/user.js"></script>
 <script type="text/javascript" src="../../../res/sys_defects.json"></script>
 <script type="text/javascript">
+var moduleName="ct_peipian_dtl";
 apiready = function(){
     //$api.fixStatusBar( $api.dom('header') );
-    $api.dom('.title').innerHTML ="裁床查片-报表数据";
+    $api.dom('.title').innerHTML ="配片-报表数据";
     InitData();
 };
 
@@ -84,24 +88,26 @@ function InitData(){
     GetCache();
     var tabData=FilterReportData(CacheDatas);
     var bodyhtml="";
-    tabData.forEach(element => {
-        bodyhtml+=formatTableRow(element.data);
+    tabData.forEach(el => {
+        var gpinfo=getGroupNum(el.data);
+        $.extend(el.data,gpinfo);
+        bodyhtml+=formatTableRow(el.data);
     });
     $("#ReportTab>tbody").html(bodyhtml);
 }
 
 function formatTableRow(_itemdata){
-    var defs=0;
-    _itemdata.defects.forEach(element => {
-       defs+=element.dfNum;
-    });
+    //CPO、款号、颜色、面料问题、裁剪问题、车缝问题、保存时间、状态
     var ihtml="<tr>";
-    ihtml+='<td class="fit"><img class="user-pic" src="../../../image/items/01.png"></td>';
-    ihtml+='<td><a href="javascript:;" class="primary-link">裁床查片</a></td>';
-    ihtml+='<td>'+(_itemdata.okNum+defs)+'</td>';
-    ihtml+='<td>'+_itemdata.okNum+'</td>';
-    ihtml+='<td>'+defs+'</td>';
-    ihtml+='<td><span class="bold font-red">'+(parseInt(defs/(_itemdata.okNum+defs)*100))+'%</span></td>';
+    ihtml+='<td class="fit"><img class="user-pic" src="../../../image/items/02.png"></td>';
+    ihtml+='<td><a href="javascript:;" class="primary-link">换片</a></td>';
+    ihtml+='<td>'+_itemdata.CPO+'</td>';
+    ihtml+='<td>'+_itemdata.BUY+'-'+_itemdata.StyleNo+'</td>';
+    ihtml+='<td>'+_itemdata.LineName+'</td>';
+    ihtml+='<td>'+_itemdata.ColorCode+'</td>';
+    ihtml+='<td><span class="bold font-red">'+_itemdata.fabNum+'</span></td>';
+    ihtml+='<td><span class="bold font-red">'+_itemdata.cutNum+'</span></td>';
+    ihtml+='<td><span class="bold font-red">'+_itemdata.smNum+'</span></td>';
     ihtml+='<td>'+_itemdata.cktime+'</td>';
     if(_itemdata.syn){
         ihtml+='<td><span class="label label-sm label-success">已上传</span></td>';
@@ -112,19 +118,48 @@ function formatTableRow(_itemdata){
     return ihtml;
 }
 
+function getGroupNum(_data) {
+  var gp={fabNum:0,cutNum:0,smNum:0};
+  var groups=[];//{key,data}
+  var groupkeys=[];
+  sys_defects.forEach(de=>{
+    if(de.ModuleName=="配片"){
+      var tindex=groupkeys.indexOf(de.GroupName);
+      if(tindex>-1){
+        groups[tindex].data.push(de.DefectNo);
+      }else{
+        groups.push({key:de.GroupName,data:[de.DefectNo]});
+        groupkeys.push(de.GroupName);
+      }
+    }
+  });
+
+  _data.defects.forEach(el => {
+    groups.forEach(gitm=>{
+      if(gitm.data.indexOf(el.dfNo)>-1){
+        if(gitm.key=="面料问题"){gp.fabNum+=el.dfNum;}
+        if(gitm.key=="裁剪问题"){gp.cutNum+=el.dfNum;}
+        if(gitm.key=="车缝问题"){gp.smNum+=el.dfNum;}
+      }
+    });
+  });
+  groupkeys=null;
+  groups=null;
+  return gp;
+}
 function sysnUpload(){
     api.showProgress({title:'提示',text:'数据同步中...',modal: true});
     SysnCache(function(_result){
         InitData();
         api.hideProgress();
-    })
+    });
 }
 
 /*缓存数据处理 start---------------*/
 var CacheDatas=null;
 function GetCache(){
   if(CacheDatas==null){
-    CacheDatas=LocalStore.getData("ct_chapian_dtl");
+    CacheDatas=LocalStore.getData(moduleName);
   }
   if(isBlank(CacheDatas)){
     CacheDatas=[];
@@ -160,8 +195,8 @@ function SysnCache(callfun){
                 thisindex++;
                 api.showProgress({title:'已同步 '+thisindex+'/'+NoSynItems.length,text:'数据同步中...',modal: true});
                 if(thisindex>=NoSynItems.length){
-                    LocalStore.setData("ct_chapian_dtl",CacheDatas);
-                    LocalStore.removeStaleData("ct_chapian_dtl");
+                    LocalStore.setData(moduleName,CacheDatas);
+                    LocalStore.removeStaleData(moduleName);
                     callfun({code:200,data:null,msg:"同步完成"});
                 }
             });

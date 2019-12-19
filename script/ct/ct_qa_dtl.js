@@ -17,6 +17,20 @@ $(document.body).ready(function(){
 });
 
 function InitEvents(){
+  if (!jQuery().knob || Metronic.isIE8()) {
+      return;
+  }
+  // general knob
+  $(".knob").knob({
+      'dynamicDraw': true,
+      'thickness': 0.2,
+      'tickColorizeValues': true,
+      'skin': 'tron',
+      'width':'140%',
+       'release':function(e){
+       }
+  });
+
   $(".dict_panel div.group_items>a").unbind().bind("click",function(){
       var checked=$(this).attr("item-check");
       var actived=$(this).find("i.fa.fa-check").length>0?true:false;
@@ -37,6 +51,8 @@ function InitEvents(){
         $(this).find("i.denum").html("1");
       }
       $(this).append('<span class="jian1" onclick="DefectMinus(this)"><i class="fa fa-minus"></i></span>').find("i.fa").addClass("fa-check");
+      //刷新统计
+      refreshTotalInfo();
   });
   //点击触发事件，监听按钮状态
   $('#replacepars').on('switchChange.bootstrapSwitch',function(event,state){
@@ -46,6 +62,60 @@ function InitEvents(){
      }else{
        $('#replacepars').attr("ckstate","0");
      }
+  });
+}
+//抽样标准
+function selCYBZ(dom) {
+  var UIActionSelector = api.require('UIActionSelector');
+  UIActionSelector.open({
+      datas:[{name:"AQL 1.0"},{name:"AQL 1.5"},{name:"AQL 2.5"},{name:"AQL 4.0"},{name:"AQL 6.5"},{name:"全检"}],
+      layout: {
+          row: 5,
+          col: 1,
+          height:50,
+          size: 16,
+          sizeActive: 20,
+          rowSpacing: 5,
+          colSpacing: 10,
+          maskBg: 'rgba(0,0,0,0.2)',
+          bg: '#fff',
+          color: '#888',
+          colorActive: '#26a69a',
+          colorSelected: '#26a69a'
+      },
+      animation: true,
+      cancel: {
+          text: '取消',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#fff',
+          bgActive: '#ccc',
+          color: '#888',
+          colorActive: '#fff'
+      },
+      ok: {
+          text: '确定',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#26a69a',
+          bgActive:'#1BBC9B',
+          color: '#fff',
+          colorActive: '#888'
+      },
+      title: {
+          text: '请选择',
+          size: 16,
+          h: 44,
+          bg: '#eee',
+          color: '#888'
+      },
+      fixedOn: api.frameName
+  }, function(ret, err) {
+      if (ret && ret.eventType=="ok" && ret.selectedInfo && ret.selectedInfo.length>0) {
+          $(dom).val(ret.selectedInfo[0].name);
+      }
   });
 }
 
@@ -65,6 +135,8 @@ function DefectMinus(e){
         defectdom.find("i.denum").html(defnum);
     }
   }
+  //刷新统计
+  refreshTotalInfo();
 
   if (e && e.stopPropagation ){
     e.stopPropagation();
@@ -72,12 +144,6 @@ function DefectMinus(e){
   else{
     window.event.cancelBubble = true;
   }
-}
-
-function calcTotal(){
-  var jsnum=COM.StringToInt($("#txtJS").val(),0);
-  var psnum=COM.StringToInt($("#txtPS").val(),0);
-  $("#txtTotalPS").val(jsnum*psnum);
 }
 
 function saveDefects(){
@@ -108,6 +174,90 @@ function saveDefects(){
       SysnCache();
     }
   })
+}
+
+var newRecordInfo=null;
+function open_add(){
+  var UIActionSelector = api.require('UIActionSelector');
+  var stepnums=[];
+  var steps=["首床","巡检","配套"];
+  var cslist=["/","第一次","第二次","第三次","第四次","第五次","第六次","第七次","第八次","第九次","第十次"];
+  steps.forEach(el=>{
+    stepnums.push({"name":el,"sub":[]});
+    cslist.forEach(el2=>{
+      stepnums[stepnums.length-1].sub.push({"name":el2});
+    })
+  });
+
+  UIActionSelector.open({
+      datas:stepnums,
+      layout: {
+          row: 5,
+          col: 2,
+          height:50,
+          size: 16,
+          sizeActive: 20,
+          rowSpacing: 5,
+          colSpacing: 10,
+          maskBg: 'rgba(0,0,0,0.2)',
+          bg: '#fff',
+          color: '#888',
+          colorActive: '#26a69a',
+          colorSelected: '#26a69a'
+      },
+      animation: true,
+      cancel: {
+          text: '取消',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#fff',
+          bgActive: '#ccc',
+          color: '#888',
+          colorActive: '#fff'
+      },
+      ok: {
+          text: '确定',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#26a69a',
+          bgActive:'#1BBC9B',
+          color: '#fff',
+          colorActive: '#888'
+      },
+      title: {
+          text: '请选择',
+          size: 16,
+          h: 44,
+          bg: '#eee',
+          color: '#888'
+      },
+      fixedOn: api.frameName
+  }, function(ret, err) {
+      if (ret && ret.eventType=="ok" && ret.selectedInfo && ret.selectedInfo.length>0) {
+        newRecordInfo={
+          Step:ret.selectedInfo[0].name,
+          SortName:ret.selectedInfo[1].name,
+        }
+        addRecords(newRecordInfo);
+      }
+  });
+}
+//新增新检验报告记录
+function addRecords(_recordInfo){
+  panel_switch(true);
+}
+
+//显示面板切换
+function panel_switch(_isAdd){
+  $("#relist").hide();
+  $("#newAddPanel").hide();
+  if(_isAdd){
+    $("#newAddPanel").show();
+  }else{
+    $("#relist").show();
+  }
 }
 
 /**
@@ -154,68 +304,106 @@ function clearCheckDefectsNum(){
     refreshTotalInfo();
 }
 
-function okNumcalc(_type){
-  var knobNum=$(".knob").val();
-  if(knobNum && knobNum!=""){}else{
-    knobNum=0;
+function okNumcalc(_group,_type){
+  var knobid="okNum_peitao";
+  var okTotalid="totalokNum_peitao";
+  if(_group && _group=="尺寸"){
+    knobid="okNum_chicun";
+    okTotalid="totalokNum_chicun";
   }
+  var knobNum=$("#"+knobid).val();
+  if(knobNum && knobNum!=""){}else{knobNum=0;}
   knobNum=parseInt(knobNum);
+
+  var okTotalNum=$("#"+okTotalid).html();
+  if(okTotalNum && okTotalNum!=""){}else{okTotalNum=0;}
+  okTotalNum=parseInt(okTotalNum);
   if(_type && _type=='1'){
-    knobNum++;
+    okTotalNum+=knobNum;
   }else{
-    knobNum--;
+    okTotalNum-=knobNum;
   }
-  $(".knob").val(knobNum);
+  if(okTotalNum<0){okTotalNum=0;}
+  $("#"+okTotalid).html(okTotalNum);
   refreshTotalInfo();
+}
+function cleardefects(_group){
+  var totalNumid="totalNum_peitao";
+  var okTotalid="totalokNum_peitao";
+  var defectsTotalid="totaldefectNum_peitao";
+  if(_group && _group=="尺寸"){
+    totalNumid="totalNum_chicun";
+    okTotalid="totalokNum_chicun";
+    defectsTotalid="totaldefectNum_chicun";
+  }
+  //清空疵点列表
+  $(".dict_panel[grouptype='"+_group+"']").find(".group_items>a[item-check='1']").each(function(i,item){
+    var dfdom=$(item);
+    dfdom.find("span.jian1").remove();
+    dfdom.find("i.fa").removeClass("fa-check");
+    dfdom.removeClass("red").addClass("green");
+    dfdom.find("i.denum").html("");
+    dfdom.attr("item-check",0);
+  });
+  $("#"+okTotalid).html(0);
+  $("#"+totalNumid).html(0);
+  $("#"+defectsTotalid).html(0);
 }
 
 function refreshTotalInfo() {
-  var okNum=parseInt($(".knob").val());
-  var defectNum=$("#defectNum").html();
-  if(defectNum && defectNum!=""){}else{
-    defectNum=0;
-  }
-  defectNum=parseInt(defectNum);
-  $("#okNum").html(okNum);
-  $("#totalNum").html((okNum+defectNum));
+  var groups=["peitao","chicun"];
+  var defectGroupType="配套";
+  groups.forEach(el=>{
+    var oktotal=parseInt($("#totalokNum_"+el).html());
+    var deftotal=0;
+    if(el=="chicun"){
+      defectGroupType="尺寸";
+    }
+    deftotal=getGroupDefectNum(defectGroupType);
+    $("#totaldefectNum_"+el).html(deftotal);
+    $("#totalNum_"+el).html((oktotal+deftotal));
+  });
+}
+
+function getGroupDefectNum(_grouptype){
+  var defectsNum=0;
+  $(".dict_panel[grouptype='"+_grouptype+"']").find(".group_items>a[item-check='1']").each(function(i,item){
+    defectsNum+=parseInt($(item).find("i.denum").html());
+  });
+  return defectsNum;
 }
 
 function InitData() {
-    if (!jQuery().knob || Metronic.isIE8()) {
-        return;
-    }
-    // general knob
-    $(".knob").knob({
-        'dynamicDraw': true,
-        'thickness': 0.2,
-        'tickColorizeValues': true,
-        'skin': 'tron',
-        'width':'80%',
-         'release':function(e){
-           refreshTotalInfo();
-         }
-    });
     initDefects();
 }
 
 function initDefects(){
   if(sys_defects && sys_defects.length>0){
-    var defecthtml="";
-    var groupdata=defectsGroupFilter("裁床查片");
+
+    var groupdata=defectsGroupFilter("裁床检验报告");
     if(groupdata && groupdata.length>0){
+      var groupName="";
       for(var i=0;i<groupdata.length;i++){
-        defecthtml+='<div class="clearfix dict_group">';
-        defecthtml+='<h4>'+groupdata[i].group+'</h4>';
-        defecthtml+='<div class="group_items">';
-        for(var j=0;j<groupdata[i].items.length;j++){
-          defecthtml+='<a href="#" class="btn green" dfno="'+groupdata[i].items[j].DefectNo+'"><i class="fa"></i>'+groupdata[i].items[j].DefectText+'<i class="denum"></i></a>';
+        groupName=groupdata[i].group;
+        var defecthtml='';
+        if(groupName=="配套"){
+          defecthtml='<div class="clearfix dict_group"><div class="group_items">';
+          for(var j=0;j<groupdata[i].items.length;j++){
+            defecthtml+='<a href="#" class="btn green" dfno="'+groupdata[i].items[j].DefectNo+'"><i class="fa"></i>'+groupdata[i].items[j].DefectText+'<i class="denum"></i></a>';
+          }
+          defecthtml+='</div></div>';
+          $("#peitao_defects").html(defecthtml);
         }
-        defecthtml+='</div>';
-        defecthtml+='</div>';
+        if(groupName=="尺寸"){
+          defecthtml='<div class="clearfix dict_group"><div class="group_items">';
+          for(var j=0;j<groupdata[i].items.length;j++){
+            defecthtml+='<a href="#" class="btn green" dfno="'+groupdata[i].items[j].DefectNo+'"><i class="fa"></i>'+groupdata[i].items[j].DefectText+'<i class="denum"></i></a>';
+          }
+          defecthtml+='</div></div>';
+          $("#chicun_defects").html(defecthtml);
+        }
       }
     }
-    defecthtml+='<div class="clearfix"></div>';
-    $(".dict_panel").html(defecthtml);
   }
 }
 

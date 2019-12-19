@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>FQC</title>
+    <title>配片-列表</title>
     <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/style.css" />
     <style>
@@ -210,7 +210,7 @@
       });
     }
     function editDetail(item){
-      var pagename="ct_chapian_dtl";
+      var pagename="ct_peipian_dtl";
       api.showProgress({title:'加载提示',text:'加载中...',modal: true});
       api.openWin({
           name: pagename,
@@ -231,18 +231,20 @@
     function getListData(styleNo,groupId,callFun){
       /*获取数据库数据*/
       data=[
-        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'1',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G01',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:29,CutQty:28},
-        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'2',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:234,CutQty:234},
-        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'5',ColorCode:'011',CPO:'NIK19100976',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:31,CutQty:31},
-        {CutPartsId:1,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'6',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:368,CutQty:367},
+        {StyleNo:'CJ5155',BUY:'201907',ColorCode:'011',CPO:'NIK19101014',LineCode:'CJM11F01',LineName:'鹰美一车间5组'},
+        {StyleNo:'CJ5233',BUY:'201907',ColorCode:'010',CPO:'NIK19101067',LineCode:'CJM11F01',LineName:'鹰美一车间3组'},
+        {StyleNo:'CJ5087',BUY:'201907',ColorCode:'011',CPO:'NIK19101045',LineCode:'CJM11F01',LineName:'鹰美一车间1组'},
+        {StyleNo:'CJ5155',BUY:'201907',ColorCode:'083',CPO:'NIK19101014',LineCode:'CJM11F01',LineName:'鹰美一车间5组'},
+        {StyleNo:'CJ5146',BUY:'201907',ColorCode:'010',CPO:'NIK19102035',LineCode:'CJM11F01',LineName:'鹰美一车间2组'},
+        {StyleNo:'CJ5142',BUY:'201907',ColorCode:'011',CPO:'NIK19101029',LineCode:'CJM11F01',LineName:'鹰美一车间6组'},
       ]
     var result={state:200,data:[]};
     for(var i=0;i<data.length;i++){
       result.data.push({
         uid: i,
         imgPath: '',
-        title:data[i].CPO+'   床次：'+data[i].BedNo,
-        subTitle: ' | 款号：'+data[i].BUY+'-'+data[i].StyleNo+' | 颜色:'+data[i].ColorCode+' | 裁剪量:'+data[i].BundleQty+' | 目标量:'+data[i].CutQty,
+        title:data[i].CPO ,
+        subTitle: ' 款号：'+data[i].BUY+'-'+data[i].StyleNo+' | 颜色:'+data[i].ColorCode,
         remark:data[i].LineName,
         icon: 'widget://image/process.png'
       });

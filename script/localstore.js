@@ -6,8 +6,8 @@
   ls.ModuleNames=[
     {Name:"ct_chapian_dtl",Title:"裁床查片",img:"01.png"},
     {Name:"ct_peipian_dtl",Title:"配片",img:"02.png"},
-    {Name:"ct_pechapian_dtl",Title:"印绣花查片",img:"03.png"},
-    {Name:"ct_ctreport_dtl",Title:"裁床报告",img:"04.png"},
+    {Name:"pe_chapian_dtl",Title:"印绣花查片",img:"03.png"},
+    {Name:"ct_qa_dtl",Title:"裁床报告",img:"04.png"},
 ];
   //1.获取当前平板用户信息
   ls.getUserInfo=function(){

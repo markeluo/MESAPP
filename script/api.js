@@ -595,3 +595,11 @@ try{
 }catch(ex){
   apiLoaded=false;
 }
+
+function HideParentProgress(_parentwin){
+    if(_parentwin && _parentwin!=""){
+        api.execScript({name:_parentwin,script:'api.hideProgress()'});
+    }else{
+      api.hideProgress();
+    }
+}

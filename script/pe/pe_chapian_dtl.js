@@ -18,6 +18,11 @@ $(document.body).ready(function(){
 
 function InitEvents(){
   $(".dict_panel div.group_items>a").unbind().bind("click",function(){
+      var total=parseInt($("#total_Num").html());
+      if(total<=0){
+        api.toast({msg: '请先设置合理的查片数量!',duration: 2000,location: 'middle'});
+        return;
+      }
       var checked=$(this).attr("item-check");
       var actived=$(this).find("i.fa.fa-check").length>0?true:false;
       var checkitems=$(".dict_group").find(".group_items>a[item-check='1']");
@@ -36,6 +41,7 @@ function InitEvents(){
         $(this).attr("item-check","1").removeClass("green").addClass("red");
         $(this).find("i.denum").html("1");
       }
+      refreshTotalInfo();
       $(this).append('<span class="jian1" onclick="DefectMinus(this)"><i class="fa fa-minus"></i></span>').find("i.fa").addClass("fa-check");
   });
   //点击触发事件，监听按钮状态
@@ -64,6 +70,8 @@ function DefectMinus(e){
     }else{
         defectdom.find("i.denum").html(defnum);
     }
+
+    refreshTotalInfo();
   }
 
   if (e && e.stopPropagation ){
@@ -74,10 +82,75 @@ function DefectMinus(e){
   }
 }
 
-function calcTotal(){
-  var jsnum=COM.StringToInt($("#txtJS").val(),0);
-  var psnum=COM.StringToInt($("#txtPS").val(),0);
-  $("#txtTotalPS").val(jsnum*psnum);
+var _position=null;
+var positionList=[];
+function changeFW(){
+  var UIActionSelector = api.require('UIActionSelector');
+  var positions=[];
+  if(positionList && positionList.length>0){}else{
+      positionList=COM.FilterObjectArray(sys_positions,{GroupName:"印绣花查片",ModuleName:"印绣花查片"})
+  }
+  var index=1;
+  positionList.forEach(item=>{
+    positions.push({PositionNo:item.PositionNo,name:index+'. '+item.PositionName});
+    index++;
+  })
+  UIActionSelector.open({
+      datas:positions,
+      layout: {
+          row: 5,
+          col: 1,
+          height:50,
+          size: 16,
+          sizeActive: 18,
+          rowSpacing: 5,
+          colSpacing: 10,
+          maskBg: 'rgba(0,0,0,0.2)',
+          bg: '#fff',
+          color: '#888',
+          colorActive: '#26a69a',
+          colorSelected: '#26a69a'
+      },
+      animation: true,
+      cancel: {
+          text: '取消',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#fff',
+          bgActive: '#ccc',
+          color: '#888',
+          colorActive: '#fff'
+      },
+      ok: {
+          text: '确定',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#26a69a',
+          bgActive:'#1BBC9B',
+          color: '#fff',
+          colorActive: '#888'
+      },
+      title: {
+          text: '请选择',
+          size: 16,
+          h: 44,
+          bg: '#eee',
+          color: '#888'
+      },
+      fixedOn: api.frameName
+  }, function(ret, err) {
+      if (ret && ret.eventType=="ok" && ret.selectedInfo && ret.selectedInfo.length>0) {
+          _position=ret.selectedInfo[0];
+          positionChangeRefresh();
+      }
+  });
+}
+
+function positionChangeRefresh(){
+  $("#positionName").html(_position.name);
+  clearCheckDefectsNum();
 }
 
 function saveDefects(){
@@ -89,10 +162,9 @@ function saveDefects(){
     key:pagekey,
     cktime:new Date().Format("yyyy-MM-dd hh:mm:ss"),
     syn:false,
-    okNum:COM.StringToInt($("#okNum").html(),0),
-    jsnum:COM.StringToInt($("#txtJS").val(),null),
-    psnum:COM.StringToInt($("#txtPS").val(),null),
-    ckstate:$('#replacepars').attr("ckstate")=="1"?true:false,
+    PositionNo:_position.PositionNo,//幅位编号
+    VerifyQty:COM.StringToInt($("#total_Num").html(),0),
+    OkQty:COM.StringToInt($("#total_okNum").html(),0),
     remark:$("#txtremark").val(),
     defects:checkdefs
   }
@@ -116,7 +188,7 @@ function saveDefects(){
  * @param {function} _callfun 回调
  */
 function checkData(_data,_callfun){
-  if(_data.okNum<=0){
+  if(_data.VerifyQty<=0){
     api.alert({title:'错误',msg:'没有设置合格数!'});
     _callfun(false);
     return;
@@ -150,34 +222,41 @@ function clearCheckDefectsNum(){
       $(item).find("span.jian1").remove();
       $(item).find("i.denum").html("");
     });
-    $("#defectNum").html("0");
+    $("#total_Num").html(0);
     refreshTotalInfo();
 }
 
-function okNumcalc(_type){
-  var knobNum=$(".knob").val();
-  if(knobNum && knobNum!=""){}else{
-    knobNum=0;
+function totalNumcalc(_type){
+  var total=parseInt($("#total_Num").html());
+  var knobtotal=$("#totalNum").val();
+  if(knobtotal && knobtotal!=""){}else{
+    knobtotal=0;
   }
-  knobNum=parseInt(knobNum);
+  knobtotal=parseInt(knobtotal);
   if(_type && _type=='1'){
-    knobNum++;
+    total+=knobtotal;
   }else{
-    knobNum--;
+    total-=knobtotal;
   }
-  $(".knob").val(knobNum);
+  if(total<0){total=0}
+  $("#total_Num").html(total);
   refreshTotalInfo();
 }
 
 function refreshTotalInfo() {
-  var okNum=parseInt($(".knob").val());
-  var defectNum=$("#defectNum").html();
-  if(defectNum && defectNum!=""){}else{
-    defectNum=0;
-  }
-  defectNum=parseInt(defectNum);
-  $("#okNum").html(okNum);
-  $("#totalNum").html((okNum+defectNum));
+  var total=parseInt($("#total_Num").html());
+  var defectNum=getDefectNum();
+  $("#total_defectNum").html(defectNum)
+  $("#total_okNum").html(total-defectNum);
+  $("#total_Num").html(total);
+}
+
+function getDefectNum(){
+  var defNum=0;
+  $(".dict_group").find(".group_items>a[item-check='1']").each(function(i,item){
+    defNum+=parseInt($(item).find("i.denum").html());
+  });
+  return defNum;
 }
 
 function InitData() {
@@ -190,18 +269,21 @@ function InitData() {
         'thickness': 0.2,
         'tickColorizeValues': true,
         'skin': 'tron',
-        'width':'80%',
+        'width':'140%',
          'release':function(e){
-           refreshTotalInfo();
          }
     });
+
     initDefects();
+
+    positionList=COM.FilterObjectArray(sys_positions,{GroupName:"印绣花查片",ModuleName:"印绣花查片"});
+    _position=positionList[0];
 }
 
 function initDefects(){
   if(sys_defects && sys_defects.length>0){
     var defecthtml="";
-    var groupdata=defectsGroupFilter("裁床查片");
+    var groupdata=defectsGroupFilter("印绣花查片");
     if(groupdata && groupdata.length>0){
       for(var i=0;i<groupdata.length;i++){
         defecthtml+='<div class="clearfix dict_group">';
@@ -239,9 +321,11 @@ function defectsGroupFilter(module){
 
 function openReport(){
   api.openWin({
-      name:"ct_chapian_report",
-      url: './ct_chapian_report.html',
-      pageParam: {},
+      name:"pe_chapian_report",
+      url: './pe_chapian_report.html',
+      pageParam: {
+        pageName:"pe_chapian_dtl"
+      },
      animation:{
         type:"fade",                //动画类型（详见动画类型常量）
         subType:"from_right",       //动画子类型（详见动画子类型常量）
@@ -252,9 +336,10 @@ function openReport(){
 
 /*缓存数据处理 start---------------*/
 var CacheDatas=null;
+var ModuleName="pe_chapian_dtl";
 function GetCache(){
   if(CacheDatas==null){
-    CacheDatas=LocalStore.getData("ct_chapian_dtl");
+    CacheDatas=LocalStore.getData(ModuleName);
   }
   if(isBlank(CacheDatas)){
     CacheDatas=[];
@@ -288,7 +373,7 @@ function AddCache(data,callfun){
     }else{
       CacheDatas.push({key:data.key,data:data});
     }
-    LocalStore.setData("ct_chapian_dtl",CacheDatas);
+    LocalStore.setData(ModuleName,CacheDatas);
     SysnCache();
     callfun({code:200,msg:"保存成功!",data:null});
   }catch(e){
@@ -312,8 +397,8 @@ function SysnCache(){
               }
               thisindex++;
               if(thisindex>=NoSynItems.length){
-                  LocalStore.setData("ct_chapian_dtl",CacheDatas);
-                  LocalStore.removeStaleData("ct_chapian_dtl");
+                  LocalStore.setData(ModuleName,CacheDatas);
+                  LocalStore.removeStaleData(ModuleName);
               }
           });
       });

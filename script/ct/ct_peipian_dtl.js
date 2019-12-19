@@ -1,9 +1,13 @@
 var pagekey=null;
+var pageInfo=null;
+var moduleName="ct_peipian_dtl";
 apiready = function(){
     //$api.fixStatusBar( $api.dom('header') );
     $api.dom('.title').innerHTML = api.pageParam.title;
     HideParentProgress(api.pageParam.pageName);
-    pagekey=api.pageParam.Keys.LBNo+"##"+api.pageParam.Keys.CPO+"##"+api.pageParam.Keys.BedNo
+    pageInfo=api.pageParam.Keys;
+    //StyleNo,BUY,ColorCode,CPO,LineCode,LineName
+    pagekey=api.pageParam.Keys.CPO+"##"+api.pageParam.Keys.LineCode+"##"+api.pageParam.Keys.ColorCode
     Metronic.init(); // init metronic core components
     InitData();
     InitEvents();
@@ -37,15 +41,8 @@ function InitEvents(){
         $(this).find("i.denum").html("1");
       }
       $(this).append('<span class="jian1" onclick="DefectMinus(this)"><i class="fa fa-minus"></i></span>').find("i.fa").addClass("fa-check");
-  });
-  //点击触发事件，监听按钮状态
-  $('#replacepars').on('switchChange.bootstrapSwitch',function(event,state){
-     //获取状态
-     if(state){
-       $("#replacepars").attr("ckstate","1");
-     }else{
-       $('#replacepars').attr("ckstate","0");
-     }
+
+      refreshTotalInfo();
   });
 }
 
@@ -66,18 +63,14 @@ function DefectMinus(e){
     }
   }
 
+  refreshTotalInfo();
+
   if (e && e.stopPropagation ){
     e.stopPropagation();
   }
   else{
     window.event.cancelBubble = true;
   }
-}
-
-function calcTotal(){
-  var jsnum=COM.StringToInt($("#txtJS").val(),0);
-  var psnum=COM.StringToInt($("#txtPS").val(),0);
-  $("#txtTotalPS").val(jsnum*psnum);
 }
 
 function saveDefects(){
@@ -89,13 +82,12 @@ function saveDefects(){
     key:pagekey,
     cktime:new Date().Format("yyyy-MM-dd hh:mm:ss"),
     syn:false,
-    okNum:COM.StringToInt($("#okNum").html(),0),
-    jsnum:COM.StringToInt($("#txtJS").val(),null),
-    psnum:COM.StringToInt($("#txtPS").val(),null),
-    ckstate:$('#replacepars').attr("ckstate")=="1"?true:false,
+    PositionNo:_position.no,
     remark:$("#txtremark").val(),
     defects:checkdefs
   }
+  $.extend(tmpdata,pageInfo);
+
   checkData(tmpdata,function(_state){
     if(_state){
       AddCache(tmpdata,function(_result){
@@ -116,26 +108,16 @@ function saveDefects(){
  * @param {function} _callfun 回调
  */
 function checkData(_data,_callfun){
-  if(_data.okNum<=0){
-    api.alert({title:'错误',msg:'没有设置合格数!'});
+  if(isBlank(_data.PositionNo)){
+    api.alert({title:'错误',msg:'没有设置配片幅位!'});
     _callfun(false);
     return;
   }else{
     if(_data.defects && _data.defects.length>0){
       _callfun(true);
     }else{
-      api.confirm({
-          title: '确认提示',
-          msg: '当前查片无任何疵品，您确定提交？',
-          buttons: ['确定', '取消']
-      }, function(ret, err) {
-          if(ret.buttonIndex==0){
-            _callfun(false);
-            return;
-          }else{
-            _callfun(true);
-          }
-      });
+      api.alert({title:'错误',msg:'没有选择配片问题!'});
+      _callfun(false);
     }
   }
 }
@@ -154,54 +136,99 @@ function clearCheckDefectsNum(){
     refreshTotalInfo();
 }
 
-function okNumcalc(_type){
-  var knobNum=$(".knob").val();
-  if(knobNum && knobNum!=""){}else{
-    knobNum=0;
-  }
-  knobNum=parseInt(knobNum);
-  if(_type && _type=='1'){
-    knobNum++;
-  }else{
-    knobNum--;
-  }
-  $(".knob").val(knobNum);
-  refreshTotalInfo();
+var _position=null;
+function changeFW(){
+  var UIActionSelector = api.require('UIActionSelector');
+  var positions=[];
+  var tmps=COM.FilterObjectArray(sys_positions,{GroupName:"配片",ModuleName:"配片"})
+  tmps.forEach(item=>{
+    positions.push({no:item.PositionNo,name:item.PositionName});
+  })
+  UIActionSelector.open({
+      datas:positions,
+      layout: {
+          row: 5,
+          col: 1,
+          height:50,
+          size: 16,
+          sizeActive: 18,
+          rowSpacing: 5,
+          colSpacing: 10,
+          maskBg: 'rgba(0,0,0,0.2)',
+          bg: '#fff',
+          color: '#888',
+          colorActive: '#26a69a',
+          colorSelected: '#26a69a'
+      },
+      animation: true,
+      cancel: {
+          text: '取消',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#fff',
+          bgActive: '#ccc',
+          color: '#888',
+          colorActive: '#fff'
+      },
+      ok: {
+          text: '确定',
+          size: 16,
+          w: 90,
+          h: 35,
+          bg: '#26a69a',
+          bgActive:'#1BBC9B',
+          color: '#fff',
+          colorActive: '#888'
+      },
+      title: {
+          text: '请选择',
+          size: 16,
+          h: 44,
+          bg: '#eee',
+          color: '#888'
+      },
+      fixedOn: api.frameName
+  }, function(ret, err) {
+      if (ret && ret.eventType=="ok" && ret.selectedInfo && ret.selectedInfo.length>0) {
+          _position=ret.selectedInfo[0];
+          positionChangeRefresh();
+      }
+  });
+}
+
+function positionChangeRefresh(){
+  $("#positionName").html(_position.name);
+  clearCheckDefectsNum();
 }
 
 function refreshTotalInfo() {
-  var okNum=parseInt($(".knob").val());
-  var defectNum=$("#defectNum").html();
-  if(defectNum && defectNum!=""){}else{
-    defectNum=0;
-  }
-  defectNum=parseInt(defectNum);
-  $("#okNum").html(okNum);
-  $("#totalNum").html((okNum+defectNum));
+  var gTotals={
+    fabNum:0,
+    cutNum:0,
+    smNum:0
+  };
+  $(".dict_group").find(".group_items>a[item-check='1']").each(function(i,item){
+      var groupName=$(item).parent().prev().html();
+      if(groupName=="面料问题"){gTotals.fabNum+=parseInt($(item).find("i.denum").html());}
+      if(groupName=="裁剪问题"){gTotals.cutNum+=parseInt($(item).find("i.denum").html());}
+      if(groupName=="车缝问题"){gTotals.smNum+=parseInt($(item).find("i.denum").html());}
+  });
+  $("#fabNum").html(gTotals.fabNum);
+  $("#cutNum").html(gTotals.cutNum);
+  $("#smNum").html(gTotals.smNum);
 }
 
 function InitData() {
-    if (!jQuery().knob || Metronic.isIE8()) {
-        return;
-    }
-    // general knob
-    $(".knob").knob({
-        'dynamicDraw': true,
-        'thickness': 0.2,
-        'tickColorizeValues': true,
-        'skin': 'tron',
-        'width':'80%',
-         'release':function(e){
-           refreshTotalInfo();
-         }
-    });
+    //幅位初始化
+    _position={no:sys_positions[0].PositionNo,name:sys_positions[0].PositionName};
     initDefects();
 }
 
 function initDefects(){
   if(sys_defects && sys_defects.length>0){
     var defecthtml="";
-    var groupdata=defectsGroupFilter("裁床查片");
+    var groupdata=defectsGroupFilter("配片");
     if(groupdata && groupdata.length>0){
       for(var i=0;i<groupdata.length;i++){
         defecthtml+='<div class="clearfix dict_group">';
@@ -239,9 +266,11 @@ function defectsGroupFilter(module){
 
 function openReport(){
   api.openWin({
-      name:"ct_chapian_report",
-      url: './ct_chapian_report.html',
-      pageParam: {},
+      name:"ct_peipian_report",
+      url: './ct_peipian_report.html',
+      pageParam: {
+        keys:pageInfo
+      },
      animation:{
         type:"fade",                //动画类型（详见动画类型常量）
         subType:"from_right",       //动画子类型（详见动画子类型常量）
@@ -254,7 +283,7 @@ function openReport(){
 var CacheDatas=null;
 function GetCache(){
   if(CacheDatas==null){
-    CacheDatas=LocalStore.getData("ct_chapian_dtl");
+    CacheDatas=LocalStore.getData(moduleName);
   }
   if(isBlank(CacheDatas)){
     CacheDatas=[];
@@ -266,29 +295,8 @@ function GetCache(){
 function AddCache(data,callfun){
   try{
     GetCache();
-    var _ThisCache=null;
-    var ccindex=-1;
-    if(CacheDatas!=null && CacheDatas.length>0){
-      for(var i=0;i<CacheDatas.lenth;i++){
-        if(CacheDatas[i].key==data.key){
-          ccindex=i;
-          break;
-        }
-      }
-    }
-    if(ccindex>-1){
-      _ThisCache=CacheDatas[ccindex].data;
-      _ThisCache.okNum=data.okNum;
-      _ThisCache.jsnum=data.jsnum;
-      _ThisCache.psnum=data.psnum;
-      _ThisCache.ckstate=data.ckstate;
-      _ThisCache.remark=data.remark;
-      _ThisCache.defects=_ThisCache.data.concat(data.defects);
-      CacheDatas[ccindex].data=_ThisCache;
-    }else{
-      CacheDatas.push({key:data.key,data:data});
-    }
-    LocalStore.setData("ct_chapian_dtl",CacheDatas);
+    CacheDatas.push({key:data.key,data:data});
+    LocalStore.setData(moduleName,CacheDatas);
     SysnCache();
     callfun({code:200,msg:"保存成功!",data:null});
   }catch(e){
@@ -312,8 +320,8 @@ function SysnCache(){
               }
               thisindex++;
               if(thisindex>=NoSynItems.length){
-                  LocalStore.setData("ct_chapian_dtl",CacheDatas);
-                  LocalStore.removeStaleData("ct_chapian_dtl");
+                  LocalStore.setData(moduleName,CacheDatas);
+                  LocalStore.removeStaleData(moduleName);
               }
           });
       });

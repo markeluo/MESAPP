@@ -1,0 +1,214 @@
+/*
+*说明： 为了避免页面重复请求，将共用数据存为JSON资源文件,此JSON可以通过Navicat工具直接将表导出为JSON
+*描述：系统幅位列表
+*/
+var sys_positions=[
+        {
+            "PositionNo": "PT001",
+            "PositionName": "主身面料",
+            "GroupName": "配片",
+            "ModuleName": "配片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT002",
+            "PositionName": "小拼片",
+            "GroupName": "配片",
+            "ModuleName": "配片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT003",
+            "PositionName": "里布",
+            "GroupName": "配片",
+            "ModuleName": "配片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT004",
+            "PositionName": "间棉",
+            "GroupName": "配片",
+            "ModuleName": "配片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT005",
+            "PositionName": "代布",
+            "GroupName": "配片",
+            "ModuleName": "配片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT006",
+            "PositionName": "罗纹",
+            "GroupName": "配片",
+            "ModuleName": "配片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT007",
+            "PositionName": "门筒",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "PositionNo": "PT008",
+            "PositionName": "帽",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "2"
+        },
+        {
+            "PositionNo": "PT009",
+            "PositionName": "领",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "3"
+        },
+        {
+            "PositionNo": "PT010",
+            "PositionName": "前幅",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "4"
+        },
+        {
+            "PositionNo": "PT011",
+            "PositionName": "后幅",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "5"
+        },
+        {
+            "PositionNo": "PT012",
+            "PositionName": "前上",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "6"
+        },
+        {
+            "PositionNo": "PT013",
+            "PositionName": "前下",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "7"
+        },
+        {
+            "PositionNo": "PT014",
+            "PositionName": "后上",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "8"
+        },
+        {
+            "PositionNo": "PT015",
+            "PositionName": "后中",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "9"
+        },
+        {
+            "PositionNo": "PT016",
+            "PositionName": "后下",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "10"
+        },
+        {
+            "PositionNo": "PT017",
+            "PositionName": "左袖",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "11"
+        },
+        {
+            "PositionNo": "PT018",
+            "PositionName": "右袖",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "12"
+        },
+        {
+            "PositionNo": "PT019",
+            "PositionName": "左右袖",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "13"
+        },
+        {
+            "PositionNo": "PT020",
+            "PositionName": "左后",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "14"
+        },
+        {
+            "PositionNo": "PT021",
+            "PositionName": "右后",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "15"
+        },
+        {
+            "PositionNo": "PT022",
+            "PositionName": "左前",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "16"
+        },
+        {
+            "PositionNo": "PT023",
+            "PositionName": "右前",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "17"
+        },
+        {
+            "PositionNo": "PT024",
+            "PositionName": "左侧拼",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "18"
+        },
+        {
+            "PositionNo": "PT025",
+            "PositionName": "右侧拼",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "19"
+        },
+        {
+            "PositionNo": "PT026",
+            "PositionName": "左右侧拼",
+            "GroupName": "印绣花查片",
+            "ModuleName": "印绣花查片",
+            "Usable": "1",
+            "SortId": "20"
+        }
+    ]

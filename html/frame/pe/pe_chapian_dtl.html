@@ -126,13 +126,6 @@
             </div>
             <div class="remark_panel">
                 <div class="form-group">
-                    <div class="col-md-2 nospace"><h4>换片状态</h4></div>
-                    <div class="col-md-10 nospace">
-                        <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="已换片" data-off-text="未换片" data-on-color="success" data-off-color="danger">
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="form-group">
                     <div class="col-md-2 nospace"><h4>备注</h4></div>
                     <div class="col-md-10 nospace">
                         <textarea id="txtremark" class="form-control" rows="3"></textarea>
@@ -161,7 +154,7 @@
                               <div class="font-grey-mint font-sm">
                                   查片总数
                               </div>
-                              <div class="uppercase font-hg theme-font" id="totalNum">
+                              <div class="uppercase font-hg theme-font" id="total_Num">
                                   0
                               </div>
                           </div>
@@ -169,7 +162,7 @@
                               <div class="font-grey-mint font-sm">
                                   合格总数
                               </div>
-                              <div class="uppercase font-hg font-purple" id="okNum">
+                              <div class="uppercase font-hg font-purple" id="total_okNum">
                                   0
                               </div>
                           </div>
@@ -177,7 +170,7 @@
                               <div class="font-grey-mint font-sm">
                                   疵品总数
                               </div>
-                              <div class="uppercase font-hg font-red-flamingo" id="defectNum">
+                              <div class="uppercase font-hg font-red-flamingo" id="total_defectNum">
                                   0
                               </div>
                           </div>
@@ -188,47 +181,33 @@
                   <div class="portlet-title">
                       <div class="caption caption-md">
                           <i class="icon-bar-chart theme-font hide"></i>
-                          <span class="caption-subject theme-font bold uppercase">裁片计算器</span>
+                          <span class="caption-subject theme-font bold uppercase">查片幅位</span>
                       </div>
                       <div class="actions">
                           <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <a class="btn btn-circle green btn-sm" onclick="calcTotal()"><i class="fa fa-fax"></i> 计算</a>
+                            <a class="btn btn-circle green btn-sm" onclick="changeFW()"><i class="fa fa-cog"></i> 更改</a>
                           </div>
                       </div>
                   </div>
                   <div class="panel_item form-inline">
-                    <div class="form-group">
-                        <input type="number" class="form-control input-xsmall" id="txtTotalPS" placeholder="总片数" value="760">
-                    </div>
-                    <div class="form-group">
-                        <a href="javascript:;" class="btn btn-icon-only">=</a>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control input-xsmall" id="txtJS" placeholder="件数" value="380">
-                    </div>
-                    <div class="form-group">
-                      <a href="javascript:;" class="btn btn-icon-only">×</a>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control input-xsmall" id="txtPS" placeholder="片数" value="2">
-                    </div>
+                    <span class="font-larg bold font-green" id="positionName">1.门筒</span>
                   </div>
               </div>
               <div class="portlet light bordered">
                   <div class="portlet-title">
                       <div class="caption caption-md">
                           <i class="icon-bar-chart theme-font hide"></i>
-                          <span class="caption-subject theme-font bold uppercase">合格计数</span>
+                          <span class="caption-subject theme-font bold uppercase">总片数加/减</span>
                       </div>
                       <div class="actions">
                           <div class="btn-group btn-group-devided" data-toggle="buttons">
-                              <a class="btn btn-circle green btn-sm" onclick="okNumcalc('1')"><i class="fa fa-plus"></i> 合格</a>
-                              <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('0')"><i class="fa fa-minus"></i> 合格</a>
+                              <a class="btn btn-circle green btn-sm" onclick="totalNumcalc('1')">片数 <i class="fa fa-plus"></i></a>
+                              <a class="btn btn-circle blue btn-sm" onclick="totalNumcalc('0')">片数 <i class="fa fa-minus"></i></a>
                           </div>
                       </div>
                   </div>
                   <div class="panel_item">
-                      <input id="okNum" class="knob" data-min="0" data-max="50000" value="0" data-fgcolor="#00bbb1">
+                      <input id="totalNum" class="knob" data-min="1" data-max="100" value="1" data-fgcolor="#00bbb1">
                   </div>
               </div>
           </div>
@@ -253,4 +232,5 @@
 <script type="text/javascript" src="../../../script/localstore.js"></script>
 <script type="text/javascript" src="../../../script/user/user.js"></script>
 <script type="text/javascript" src="../../../res/sys_defects.json"></script>
-<script type="text/javascript" src="../../../script/ct/ct_chapian_dtl.js"></script>
+<script type="text/javascript" src="../../../res/sys_position.json"></script>
+<script type="text/javascript" src="../../../script/pe/pe_chapian_dtl.js"></script>

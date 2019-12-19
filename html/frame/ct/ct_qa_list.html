@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>FQC</title>
+    <title>裁床检验报告</title>
     <link rel="stylesheet" type="text/css" href="../../../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/style.css" />
     <style>
@@ -210,52 +210,53 @@
       });
     }
     function editDetail(item){
-      var pagename="ct_chapian_dtl";
+      var pagename="ct_qa_dtl";
       api.showProgress({title:'加载提示',text:'加载中...',modal: true});
       api.openWin({
           name: pagename,
           url: './'+pagename+'.html',
           pageParam: {
-              pageName:pagename,
               Keys:data[item["uid"]],
+              pageName:pagename,
               title:item["title"]+' | '+item["subTitle"]
          },
          animation:{
             type:"fade",                //动画类型（详见动画类型常量）
             subType:"from_right",       //动画子类型（详见动画子类型常量）
-            duration:300                //动画过渡时间，默认300毫秒
+            duration:500                //动画过渡时间，默认300毫秒
         }
       });
+
     }
     var data=[];
     function getListData(styleNo,groupId,callFun){
       /*获取数据库数据*/
-      data=[
-        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'1',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G01',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:29,CutQty:28},
-        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'2',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:234,CutQty:234},
-        {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'5',ColorCode:'011',CPO:'NIK19100976',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:31,CutQty:31},
-        {CutPartsId:1,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'6',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:368,CutQty:367},
-      ]
+    data=[
+      {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'1',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G01',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:29,CutQty:28},
+      {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'2',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:234,CutQty:234},
+      {CutPartsId:null,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'5',ColorCode:'011',CPO:'NIK19100976',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:31,CutQty:31},
+      {CutPartsId:1,LBNo:'LBD000001',StyleNo:'CJ5155',BUY:'201907',BedNo:'6',ColorCode:'011',CPO:'NIK19101014',BatchNo:'H100G03',LineCode:'CJM11F01',LineName:'裁床A组',BundleQty:368,CutQty:367},
+    ]
     var result={state:200,data:[]};
     for(var i=0;i<data.length;i++){
       result.data.push({
-        uid: i,
+        uid:i,
         imgPath: '',
         title:data[i].CPO+'   床次：'+data[i].BedNo,
-        subTitle: ' | 款号：'+data[i].BUY+'-'+data[i].StyleNo+' | 颜色:'+data[i].ColorCode+' | 裁剪量:'+data[i].BundleQty+' | 目标量:'+data[i].CutQty,
+        subTitle: ' | 款号：'+data[i].BUY+'-'+data[i].StyleNo+' | 颜色:'+data[i].ColorCode+' | 裁剪量:'+data[i].BundleQty,
         remark:data[i].LineName,
         icon: 'widget://image/process.png'
       });
     }
-      if(styleNo==null && groupId==null){
-        //获取所有数据
-        callFun(result);
-      }
-      if(styleNo && styleNo!=""){
-        //根据款号查找
-      }
-      if(groupId && groupId!=""){
-        //根据班组查找
-      }
+    if(styleNo==null && groupId==null){
+      //获取所有数据
+      callFun(result);
     }
+    if(styleNo && styleNo!=""){
+      //根据款号查找
+    }
+    if(groupId && groupId!=""){
+      //根据班组查找
+    }
+  }
 </script>
