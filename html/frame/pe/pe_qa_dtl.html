@@ -133,10 +133,10 @@
         margin-top:15px;
       }
       .content_left{
-        width:22%;
+        width:30%;
         vertical-align: top;
         display:block;
-        margin-right:2%;
+        margin-right:1%;
       }
       .content_left>div.portlet.light.bordered{
         border-width:0px !important;
@@ -213,6 +213,12 @@
       .zongjie>button.btn-df.active{
         background-color:#E87E04;
       }
+      .panel_item.basicInfo>.form-group>label{
+        display: block;
+        text-align: right;
+        line-height: 30px;
+      }
+      .YXJG_panel{text-align:left;}
     </style>
 </head>
 <body>
@@ -284,26 +290,15 @@
                           </div>
                           <div class="panel_item basicInfo">
                             <div class="form-group">
-          										<label>裁剪日期</label>
-          										<div class="input-group">
-          											<span class="input-group-addon">
-          											<i class="fa fa-calendar"></i>
-          											</span>
+          										<label class="col-md-4 control-label">检验日期</label>
+          										<div class="col-md-8 input-group">
+          											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
           											<input type="date" class="form-control" placeholder="点击选择日期">
           										</div>
           									</div>
                             <div class="form-group">
-                              <label>抽样标准</label>
-                              <div class="input-group">
-                                <span class="input-group-addon">
-                                <i class="fa fa-book"></i>
-                                </span>
-                                <input type="text" class="form-control" placeholder="点击选择标准" readonly="readonly" onclick="selCYBZ(this)">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label>允收</label>
-                              <div class="input-group">
+                              <label class="col-md-4 control-label">出货数</label>
+                              <div class="col-md-8 input-group">
                                 <span class="input-group-addon">
                                 <i class="fa fa-check"></i>
                                 </span>
@@ -311,12 +306,36 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              <label>拒收</label>
-                              <div class="input-group">
+                              <label class="col-md-4 control-label">班组/机台</label>
+                              <div class="col-md-8 input-group">
                                 <span class="input-group-addon">
-                                <i class="fa fa-ban"></i>
+                                <i class="fa fa-check"></i>
                                 </span>
                                 <input type="text" class="form-control" placeholder="">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-4 control-label">幅位</label>
+                              <div class="col-md-8 input-group">
+                                <span class="input-group-addon">
+                                <i class="fa fa-book"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="点击选择幅位" readonly="readonly" onclick="selFW(this)">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-4 control-label">延洗次数</label>
+                              <div class="col-md-8 input-group">
+                                <span class="input-group-addon">
+                                <i class="fa fa-book"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="点击选择次数" readonly="readonly" onclick="selYXCS(this)">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-4 control-label">延洗结果</label>
+                              <div class="col-md-8 input-group YXJG_panel">
+                                <input id="result_YXJG" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
                               </div>
                             </div>
                           </div>
@@ -324,169 +343,20 @@
     							  </div>
                     <div class="content_right">
                         <div class="portlet light bordered">
-                          <div class="portlet-title">
-                              <div class="caption caption-md">
-                                  <i class="icon-bar-chart theme-font hide"></i>
-                                  <span class="caption-subject theme-font bold uppercase">检查项</span>
-                              </div>
-                              <div class="actions"></div>
-                          </div>
                           <div class="panel_item tabbable-line">
             								<ul class="nav nav-tabs ">
-            									<li class="active"><a href="#tab_15_1" data-toggle="tab" aria-expanded="true">A.开裁条件</a></li>
-                              <li class=""><a href="#tab_15_2" data-toggle="tab" aria-expanded="false">B.裁剪问题</a></li>
-                              <li class=""><a href="#tab_15_3" data-toggle="tab" aria-expanded="false">C.D.烫朴、唛、标&配套</a></li>
-                              <li class=""><a href="#tab_15_4" data-toggle="tab" aria-expanded="false">E.尺寸</a></li>
-                              <li class=""><a href="#tab_15_5" data-toggle="tab" aria-expanded="false">F.总结</a></li>
+            									<li class="active"><a href="#tab_15_1" data-toggle="tab" aria-expanded="true">A.绣花问题</a></li>
+                              <li class=""><a href="#tab_15_2" data-toggle="tab" aria-expanded="false">B.印花问题</a></li>
+                              <li class=""><a href="#tab_15_3" data-toggle="tab" aria-expanded="false">C.烫花问题</a></li>
+                              <li class=""><a href="#tab_15_4" data-toggle="tab" aria-expanded="false">D.贴合问题</a></li>
+                              <li class=""><a href="#tab_15_5" data-toggle="tab" aria-expanded="false">E.尺寸问题</a></li>
+                              <li class=""><a href="#tab_15_6" data-toggle="tab" aria-expanded="false">F.总结</a></li>
             								</ul>
             								<div class="tab-content condition">
             									<div class="tab-pane active" id="tab_15_1">
-            										<div class="row">
-                                  <div class="col-md-2 nospace"><h4>产前会议：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>制单：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>布板：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>验布报告：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>物检报告：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>样衣：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>松布记录：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>拉布高度：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>唛架：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>缩率流程表：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>样衣延洗测试：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>印花测试：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row jielun">
-                                  <div class="col-md-2 nospace"><h4>开裁条件结论：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-            									</div>
-            									<div class="tab-pane" id="tab_15_2">
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>面料错误：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>手感：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>通批布痕：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>面料断差/边中差：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>匹差：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>裁剪朝向错误：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>走刀：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>剪口不对称：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>未打编号：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>裁缩小于0.5cm：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>裁缩大于0.5cm：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                  <div class="col-md-2 nospace"><h4>裁缩小于0.2cm：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-                                <div class="row">
-                                  <div class="col-md-2 nospace"><h4>裁片长短：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-                                </div>
-                                <div class="row jielun">
-                                  <div class="col-md-2 nospace"><h4>裁剪问题结论：</h4></div>
-                                  <div class="col-md-2 nospace">
-                                      <input id="replacepars" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                  </div>
-            										</div>
-            									</div>
-            									<div class="tab-pane" id="tab_15_3">
                                 <div class="contentdiv flex-con" >
                                   <div class="dictlist portlet light bordered">
-                                    <div id="peitao_defects" class="dict_panel" grouptype="配套">
-                                    </div>
-                                    <div class="remark_panel">
-                                        <div class="form-group">
-                                            <div class="col-md-2 nospace"><h4>配套结论：</h4></div>
-                                            <div class="col-md-10 nospace">
-                                                <input id="peitao_JieLun" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
+                                    <div id="xiuhua_defects" class="dict_panel" grouptype="绣花问题">
                                     </div>
                                   </div>
                                   <div class="menupanel">
@@ -498,7 +368,7 @@
                                               </div>
                                               <div class="actions">
                                                   <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('配套')"><i class="fa fa-times"></i> 清空计数</a>
+                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('绣花问题')"><i class="fa fa-times"></i> 清空计数</a>
                                                   </div>
                                               </div>
                                           </div>
@@ -508,7 +378,7 @@
                                                       <div class="font-grey-mint font-sm">
                                                           总数
                                                       </div>
-                                                      <div class="uppercase font-hg theme-font" id="totalNum_peitao">
+                                                      <div class="uppercase font-hg theme-font" id="totalNum_xiuhua">
                                                           0
                                                       </div>
                                                   </div>
@@ -516,7 +386,7 @@
                                                       <div class="font-grey-mint font-sm">
                                                           合格
                                                       </div>
-                                                      <div class="uppercase font-hg font-purple" id="totalokNum_peitao">
+                                                      <div class="uppercase font-hg font-purple" id="totalokNum_xiuhua">
                                                           0
                                                       </div>
                                                   </div>
@@ -524,7 +394,7 @@
                                                       <div class="font-grey-mint font-sm">
                                                           疵品
                                                       </div>
-                                                      <div class="uppercase font-hg font-red-flamingo" id="totaldefectNum_peitao">
+                                                      <div class="uppercase font-hg font-red-flamingo" id="totaldefectNum_xiuhua">
                                                           0
                                                       </div>
                                                   </div>
@@ -539,13 +409,149 @@
                                               </div>
                                               <div class="actions">
                                                   <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('配套','1')"><i class="fa fa-plus"></i> 合格</a>
-                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('配套','0')"><i class="fa fa-minus"></i> 合格</a>
+                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('绣花问题','1')"><i class="fa fa-plus"></i> 合格</a>
+                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('绣花问题','0')"><i class="fa fa-minus"></i> 合格</a>
                                                   </div>
                                               </div>
                                           </div>
                                           <div class="panel_item okNumPanel">
-                                              <input id="okNum_peitao" class="knob" data-min="1" data-max="50" value="1" data-fgcolor="#00bbb1">
+                                              <input id="okNum_xiuhua" class="knob" data-min="1" data-max="50" value="1" data-fgcolor="#00bbb1">
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+            									</div>
+            									<div class="tab-pane" id="tab_15_2">
+                                <div class="contentdiv flex-con" >
+                                  <div class="dictlist portlet light bordered">
+                                    <div id="yinhua_defects" class="dict_panel" grouptype="印花问题">
+                                    </div>
+                                  </div>
+                                  <div class="menupanel">
+                                      <div class="portlet light bordered">
+                                          <div class="portlet-title">
+                                              <div class="caption caption-md">
+                                                  <i class="icon-bar-chart theme-font hide"></i>
+                                                  <span class="caption-subject theme-font bold uppercase">查验统计</span>
+                                              </div>
+                                              <div class="actions">
+                                                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('印花问题')"><i class="fa fa-times"></i> 清空计数</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel_item">
+                                              <div class="row list-separated">
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          总数
+                                                      </div>
+                                                      <div class="uppercase font-hg theme-font" id="totalNum_yinhua">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          合格
+                                                      </div>
+                                                      <div class="uppercase font-hg font-purple" id="totalokNum_yinhua">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          疵品
+                                                      </div>
+                                                      <div class="uppercase font-hg font-red-flamingo" id="totaldefectNum_yinhua">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="portlet light bordered">
+                                          <div class="portlet-title">
+                                              <div class="caption caption-md">
+                                                  <i class="icon-bar-chart theme-font hide"></i>
+                                                  <span class="caption-subject theme-font bold uppercase">合格计数</span>
+                                              </div>
+                                              <div class="actions">
+                                                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('印花问题','1')"><i class="fa fa-plus"></i> 合格</a>
+                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('印花问题','0')"><i class="fa fa-minus"></i> 合格</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel_item okNumPanel">
+                                              <input id="okNum_yinhua" class="knob" data-min="1" data-max="50" value="1" data-fgcolor="#00bbb1">
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+            									</div>
+            									<div class="tab-pane" id="tab_15_3">
+                                <div class="contentdiv flex-con" >
+                                  <div class="dictlist portlet light bordered">
+                                    <div id="tanghua_defects" class="dict_panel" grouptype="烫花问题">
+                                    </div>
+                                  </div>
+                                  <div class="menupanel">
+                                      <div class="portlet light bordered">
+                                          <div class="portlet-title">
+                                              <div class="caption caption-md">
+                                                  <i class="icon-bar-chart theme-font hide"></i>
+                                                  <span class="caption-subject theme-font bold uppercase">查验统计</span>
+                                              </div>
+                                              <div class="actions">
+                                                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('烫花问题')"><i class="fa fa-times"></i> 清空计数</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel_item">
+                                              <div class="row list-separated">
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          总数
+                                                      </div>
+                                                      <div class="uppercase font-hg theme-font" id="totalNum_tanghua">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          合格
+                                                      </div>
+                                                      <div class="uppercase font-hg font-purple" id="totalokNum_tanghua">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          疵品
+                                                      </div>
+                                                      <div class="uppercase font-hg font-red-flamingo" id="totaldefectNum_tanghua">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="portlet light bordered">
+                                          <div class="portlet-title">
+                                              <div class="caption caption-md">
+                                                  <i class="icon-bar-chart theme-font hide"></i>
+                                                  <span class="caption-subject theme-font bold uppercase">合格计数</span>
+                                              </div>
+                                              <div class="actions">
+                                                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('烫花问题','1')"><i class="fa fa-plus"></i> 合格</a>
+                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('烫花问题','0')"><i class="fa fa-minus"></i> 合格</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel_item okNumPanel">
+                                              <input id="okNum_tanghua" class="knob" data-min="1" data-max="50" value="1" data-fgcolor="#00bbb1">
                                           </div>
                                       </div>
                                   </div>
@@ -554,16 +560,75 @@
                               <div class="tab-pane" id="tab_15_4">
                                 <div class="contentdiv flex-con" >
                                   <div class="dictlist portlet light bordered">
-                                    <div id="chicun_defects" class="dict_panel" grouptype="尺寸">
+                                    <div id="tiehe_defects" class="dict_panel" grouptype="贴合问题">
                                     </div>
-                                    <div class="remark_panel">
-                                        <div class="form-group">
-                                            <div class="col-md-2 nospace"><h4>尺寸结论</h4></div>
-                                            <div class="col-md-10 nospace">
-                                                <input id="chicun_JieLun" type="checkbox" checked ckstate="1" class="make-switch" data-on-text="OK" data-off-text="NG" data-on-color="success" data-off-color="danger">
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
+                                  </div>
+                                  <div class="menupanel">
+                                      <div class="portlet light bordered">
+                                          <div class="portlet-title">
+                                              <div class="caption caption-md">
+                                                  <i class="icon-bar-chart theme-font hide"></i>
+                                                  <span class="caption-subject theme-font bold uppercase">贴合查验统计</span>
+                                              </div>
+                                              <div class="actions">
+                                                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('贴合问题')"><i class="fa fa-times"></i> 清空计数</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel_item">
+                                              <div class="row list-separated">
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          总数
+                                                      </div>
+                                                      <div class="uppercase font-hg theme-font" id="totalNum_tiehe">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          合格
+                                                      </div>
+                                                      <div class="uppercase font-hg font-purple" id="totalokNum_tiehe">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-4 col-sm-4 col-xs-6">
+                                                      <div class="font-grey-mint font-sm">
+                                                          疵品
+                                                      </div>
+                                                      <div class="uppercase font-hg font-red-flamingo" id="totaldefectNum_tiehe">
+                                                          0
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="portlet light bordered">
+                                          <div class="portlet-title">
+                                              <div class="caption caption-md">
+                                                  <i class="icon-bar-chart theme-font hide"></i>
+                                                  <span class="caption-subject theme-font bold uppercase">合格数加减</span>
+                                              </div>
+                                              <div class="actions">
+                                                  <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('贴合问题','1')"><i class="fa fa-plus"></i> 合格</a>
+                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('贴合问题','0')"><i class="fa fa-minus"></i> 合格</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel_item okNumPanel">
+                                              <input id="okNum_tiehe" class="knob" data-min="1" data-max="50" value="1" data-fgcolor="#00bbb1">
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+            									</div>
+                              <div class="tab-pane" id="tab_15_5">
+                                <div class="contentdiv flex-con" >
+                                  <div class="dictlist portlet light bordered">
+                                    <div id="chicun_defects" class="dict_panel" grouptype="尺寸问题">
                                     </div>
                                   </div>
                                   <div class="menupanel">
@@ -575,7 +640,7 @@
                                               </div>
                                               <div class="actions">
                                                   <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('尺寸')"><i class="fa fa-times"></i> 清空计数</a>
+                                                    <a class="btn btn-circle blue btn-sm" onclick="cleardefects('尺寸问题')"><i class="fa fa-times"></i> 清空计数</a>
                                                   </div>
                                               </div>
                                           </div>
@@ -616,8 +681,8 @@
                                               </div>
                                               <div class="actions">
                                                   <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('尺寸','1')"><i class="fa fa-plus"></i> 合格</a>
-                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('尺寸','0')"><i class="fa fa-minus"></i> 合格</a>
+                                                      <a class="btn btn-circle green btn-sm" onclick="okNumcalc('尺寸问题','1')"><i class="fa fa-plus"></i> 合格</a>
+                                                      <a class="btn btn-circle blue btn-sm" onclick="okNumcalc('尺寸问题','0')"><i class="fa fa-minus"></i> 合格</a>
                                                   </div>
                                               </div>
                                           </div>
@@ -628,7 +693,7 @@
                                   </div>
                                 </div>
             									</div>
-                              <div class="tab-pane" id="tab_15_5">
+                              <div class="tab-pane" id="tab_15_6">
                                 <div class="dictlist portlet light bordered">
                                   <div class="form-group">
                                       <div class="col-md-2"><h4>备注</h4></div>
@@ -643,7 +708,6 @@
                                         <div class="btn-group zongjie">
               														<button type="button" class="btn btn-default btn-ok active"> OK </button>
               														<button type="button" class="btn btn-default btn-ng"> NG </button>
-              														<button type="button" class="btn btn-default btn-df"> 待复 </button>
               													</div>
                                       </div>
                                       <div class="clearfix"></div>

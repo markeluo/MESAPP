@@ -36,6 +36,7 @@ function InitEvents(){
         $(this).attr("item-check","1").removeClass("green").addClass("red");
         $(this).find("i.denum").html("1");
       }
+      refreshTotalInfo();
       $(this).append('<span class="jian1" onclick="DefectMinus(this)"><i class="fa fa-minus"></i></span>').find("i.fa").addClass("fa-check");
   });
   //点击触发事件，监听按钮状态
@@ -65,6 +66,7 @@ function DefectMinus(e){
         defectdom.find("i.denum").html(defnum);
     }
   }
+  refreshTotalInfo();
 
   if (e && e.stopPropagation ){
     e.stopPropagation();
@@ -171,13 +173,17 @@ function okNumcalc(_type){
 
 function refreshTotalInfo() {
   var okNum=parseInt($(".knob").val());
-  var defectNum=$("#defectNum").html();
-  if(defectNum && defectNum!=""){}else{
-    defectNum=0;
-  }
-  defectNum=parseInt(defectNum);
+  var defectNum=getDefectNum();
   $("#okNum").html(okNum);
+  $("#defectNum").html(defectNum);
   $("#totalNum").html((okNum+defectNum));
+}
+function getDefectNum(){
+  var fNum=0;
+  $(".dict_group").find(".group_items>a[item-check='1']").each(function(i,item){
+    fNum+=parseInt($(item).find("i.denum").html());
+  });
+  return fNum;
 }
 
 function InitData() {
@@ -300,23 +306,25 @@ function AddCache(data,callfun){
 function SysnCache(){
   GetCache();
   var NoSynItems=[];
-  CacheDatas.forEach(element => {
-      if(!element.data.syn){NoSynItems.push(element);}
-  });
+  for(var i=0;i<CacheDatas.length;i++){
+    if(!CacheDatas[i].data.syn){NoSynItems.push(CacheDatas[i]);}
+  }
   if(NoSynItems!=null && NoSynItems.length>0){
       var thisindex=0;
-      NoSynItems.forEach(element => {
-          dataUpload(element,function(_result){
-              if(_result.code==200){
-                  element.data.syn=true;
-              }
-              thisindex++;
-              if(thisindex>=NoSynItems.length){
-                  LocalStore.setData("ct_chapian_dtl",CacheDatas);
-                  LocalStore.removeStaleData("ct_chapian_dtl");
-              }
-          });
-      });
+      var element=null;
+      for(var i=0;i<NoSynItems.length;i++){
+        element=NoSynItems[i];
+        dataUpload(element,function(_result){
+            if(_result.code==200){
+                element.data.syn=true;
+            }
+            thisindex++;
+            if(thisindex>=NoSynItems.length){
+                LocalStore.setData("ct_chapian_dtl",CacheDatas);
+                LocalStore.removeStaleData("ct_chapian_dtl");
+            }
+        });
+      }
   }
 }
 

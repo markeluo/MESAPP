@@ -586,5 +586,829 @@ var sys_defects=[
             "ModuleName": "印绣花查片",
             "Usable": "1",
             "SortId": "8"
+        },
+        {
+            "DefectNo": "DF0074",
+            "DefectText": "花形不准(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "DefectNo": "DF0075",
+            "DefectText": "颜色错误(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "2"
+        },
+        {
+            "DefectNo": "DF0076",
+            "DefectText": "尺寸偏差＞0.3cm(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "3"
+        },
+        {
+            "DefectNo": "DF0077",
+            "DefectText": "尺寸偏差 ＜-0.3cm(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "4"
+        },
+        {
+            "DefectNo": "DF0078",
+            "DefectText": "爆口(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "5"
+        },
+        {
+            "DefectNo": "DF0079",
+            "DefectText": "变形",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "6"
+        },
+        {
+            "DefectNo": "DF0080",
+            "DefectText": "走位",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "7"
+        },
+        {
+            "DefectNo": "DF0081",
+            "DefectText": "散线",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "8"
+        },
+        {
+            "DefectNo": "DF0082",
+            "DefectText": "缺针",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "9"
+        },
+        {
+            "DefectNo": "DF0083",
+            "DefectText": "跳针",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "10"
+        },
+        {
+            "DefectNo": "DF0084",
+            "DefectText": "针洞",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "11"
+        },
+        {
+            "DefectNo": "DF0085",
+            "DefectText": "爆边",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "12"
+        },
+        {
+            "DefectNo": "DF0086",
+            "DefectText": "露白",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "13"
+        },
+        {
+            "DefectNo": "DF0087",
+            "DefectText": "抛线",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "14"
+        },
+        {
+            "DefectNo": "DF0088",
+            "DefectText": "起皱(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "15"
+        },
+        {
+            "DefectNo": "DF0089",
+            "DefectText": "抽纱",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "16"
+        },
+        {
+            "DefectNo": "DF0090",
+            "DefectText": "断纱",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "17"
+        },
+        {
+            "DefectNo": "DF0091",
+            "DefectText": "线头",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "18"
+        },
+        {
+            "DefectNo": "DF0092",
+            "DefectText": "不居中(绣花)",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "19"
+        },
+        {
+            "DefectNo": "DF0093",
+            "DefectText": "大小边",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "20"
+        },
+        {
+            "DefectNo": "DF0094",
+            "DefectText": "露单线",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "21"
+        },
+        {
+            "DefectNo": "DF0095",
+            "DefectText": "污渍/油渍",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "22"
+        },
+        {
+            "DefectNo": "DF0096",
+            "DefectText": "纸朴清理不干净",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "23"
+        },
+        {
+            "DefectNo": "DF0097",
+            "DefectText": "绣花其他",
+            "GroupName": "绣花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "24"
+        },
+        {
+            "DefectNo": "DF0098",
+            "DefectText": "花形不准(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "DefectNo": "DF0099",
+            "DefectText": "颜色错误(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "2"
+        },
+        {
+            "DefectNo": "DF0100",
+            "DefectText": "尺寸偏差＞0.3cm(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "3"
+        },
+        {
+            "DefectNo": "DF0101",
+            "DefectText": "尺寸偏差 ＜-0.3cm(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "4"
+        },
+        {
+            "DefectNo": "DF0102",
+            "DefectText": "过炉缩率与净纸样比较 ＞0.5cm",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "5"
+        },
+        {
+            "DefectNo": "DF0103",
+            "DefectText": "过炉缩率与净纸样比较 ＜-0.8cm",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "6"
+        },
+        {
+            "DefectNo": "DF0104",
+            "DefectText": "起翘(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "7"
+        },
+        {
+            "DefectNo": "DF0105",
+            "DefectText": "爆口(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "8"
+        },
+        {
+            "DefectNo": "DF0106",
+            "DefectText": "粘手",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "9"
+        },
+        {
+            "DefectNo": "DF0107",
+            "DefectText": "沙眼",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "10"
+        },
+        {
+            "DefectNo": "DF0108",
+            "DefectText": "起泡",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "11"
+        },
+        {
+            "DefectNo": "DF0109",
+            "DefectText": "花边",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "12"
+        },
+        {
+            "DefectNo": "DF0110",
+            "DefectText": "塞网",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "13"
+        },
+        {
+            "DefectNo": "DF0111",
+            "DefectText": "漏浆",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "14"
+        },
+        {
+            "DefectNo": "DF0112",
+            "DefectText": "爆浆",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "15"
+        },
+        {
+            "DefectNo": "DF0113",
+            "DefectText": "过底(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "16"
+        },
+        {
+            "DefectNo": "DF0114",
+            "DefectText": "刮痕",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "17"
+        },
+        {
+            "DefectNo": "DF0115",
+            "DefectText": "网纹",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "18"
+        },
+        {
+            "DefectNo": "DF0116",
+            "DefectText": "歪斜(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "19"
+        },
+        {
+            "DefectNo": "DF0117",
+            "DefectText": "偏薄",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "20"
+        },
+        {
+            "DefectNo": "DF0118",
+            "DefectText": "拉伤",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "21"
+        },
+        {
+            "DefectNo": "DF0119",
+            "DefectText": "烤坏",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "22"
+        },
+        {
+            "DefectNo": "DF0120",
+            "DefectText": "疤痕",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "23"
+        },
+        {
+            "DefectNo": "DF0121",
+            "DefectText": "粘台胶",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "24"
+        },
+        {
+            "DefectNo": "DF0122",
+            "DefectText": "粘布毛",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "25"
+        },
+        {
+            "DefectNo": "DF0123",
+            "DefectText": "不清晰",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "26"
+        },
+        {
+            "DefectNo": "DF0124",
+            "DefectText": "光哑面",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "27"
+        },
+        {
+            "DefectNo": "DF0125",
+            "DefectText": "露底色",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "28"
+        },
+        {
+            "DefectNo": "DF0126",
+            "DefectText": "不居中(印花)",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "29"
+        },
+        {
+            "DefectNo": "DF0127",
+            "DefectText": "深浅色",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "30"
+        },
+        {
+            "DefectNo": "DF0128",
+            "DefectText": "浆面不平",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "31"
+        },
+        {
+            "DefectNo": "DF0129",
+            "DefectText": "套位不准",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "32"
+        },
+        {
+            "DefectNo": "DF0130",
+            "DefectText": "植绒杂色",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "33"
+        },
+        {
+            "DefectNo": "DF0131",
+            "DefectText": "边缘漏植绒",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "34"
+        },
+        {
+            "DefectNo": "DF0132",
+            "DefectText": "印花其他",
+            "GroupName": "印花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "35"
+        },
+        {
+            "DefectNo": "DF0133",
+            "DefectText": "花形不准(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "DefectNo": "DF0134",
+            "DefectText": "颜色错误(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "2"
+        },
+        {
+            "DefectNo": "DF0135",
+            "DefectText": "尺寸偏差 ＞0.3cm(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "3"
+        },
+        {
+            "DefectNo": "DF0136",
+            "DefectText": "尺寸偏差 ＜-0.3cm(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "4"
+        },
+        {
+            "DefectNo": "DF0137",
+            "DefectText": "起镜(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "5"
+        },
+        {
+            "DefectNo": "DF0138",
+            "DefectText": "起翘(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "6"
+        },
+        {
+            "DefectNo": "DF0139",
+            "DefectText": "歪斜(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "7"
+        },
+        {
+            "DefectNo": "DF0140",
+            "DefectText": "渗胶(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "8"
+        },
+        {
+            "DefectNo": "DF0141",
+            "DefectText": "过底(烫花)",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "9"
+        },
+        {
+            "DefectNo": "DF0142",
+            "DefectText": "表面印痕",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "10"
+        },
+        {
+            "DefectNo": "DF0143",
+            "DefectText": "烫花其他",
+            "GroupName": "烫花问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "11"
+        },
+        {
+            "DefectNo": "DF0144",
+            "DefectText": "花形不准(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "DefectNo": "DF0145",
+            "DefectText": "颜色错误(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "2"
+        },
+        {
+            "DefectNo": "DF0146",
+            "DefectText": "尺寸偏差 ＞0.3cm(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "3"
+        },
+        {
+            "DefectNo": "DF0147",
+            "DefectText": "尺寸偏差 ＜-0.3cm(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "4"
+        },
+        {
+            "DefectNo": "DF0148",
+            "DefectText": "压痕",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "5"
+        },
+        {
+            "DefectNo": "DF0149",
+            "DefectText": "起镜(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "6"
+        },
+        {
+            "DefectNo": "DF0150",
+            "DefectText": "起翘(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "7"
+        },
+        {
+            "DefectNo": "DF0151",
+            "DefectText": "起皱(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "8"
+        },
+        {
+            "DefectNo": "DF0152",
+            "DefectText": "胶印",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "9"
+        },
+        {
+            "DefectNo": "DF0153",
+            "DefectText": "渗胶(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "10"
+        },
+        {
+            "DefectNo": "DF0154",
+            "DefectText": "污渍",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "11"
+        },
+        {
+            "DefectNo": "DF0155",
+            "DefectText": "过底(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "12"
+        },
+        {
+            "DefectNo": "DF0156",
+            "DefectText": "牙边",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "13"
+        },
+        {
+            "DefectNo": "DF0157",
+            "DefectText": "发黄",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "14"
+        },
+        {
+            "DefectNo": "DF0158",
+            "DefectText": "错位",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "15"
+        },
+        {
+            "DefectNo": "DF0159",
+            "DefectText": "不平顺",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "16"
+        },
+        {
+            "DefectNo": "DF0160",
+            "DefectText": "藏止口",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "17"
+        },
+        {
+            "DefectNo": "DF0161",
+            "DefectText": "不居中(贴合)",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "18"
+        },
+        {
+            "DefectNo": "DF0162",
+            "DefectText": "贴合其他",
+            "GroupName": "贴合问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "19"
+        },
+        {
+            "DefectNo": "DF0163",
+            "DefectText": "衣长+0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "1"
+        },
+        {
+            "DefectNo": "DF0164",
+            "DefectText": "衣长-0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "2"
+        },
+        {
+            "DefectNo": "DF0165",
+            "DefectText": "裤长+1cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "3"
+        },
+        {
+            "DefectNo": "DF0166",
+            "DefectText": "裤长-1cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "4"
+        },
+        {
+            "DefectNo": "DF0167",
+            "DefectText": "胸围+0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "5"
+        },
+        {
+            "DefectNo": "DF0168",
+            "DefectText": "胸围-0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "6"
+        },
+        {
+            "DefectNo": "DF0169",
+            "DefectText": "臀围+0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "7"
+        },
+        {
+            "DefectNo": "DF0170",
+            "DefectText": "臀围-0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "8"
+        },
+        {
+            "DefectNo": "DF0171",
+            "DefectText": "脚围+0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "9"
+        },
+        {
+            "DefectNo": "DF0172",
+            "DefectText": "脚围-0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "10"
+        },
+        {
+            "DefectNo": "DF0173",
+            "DefectText": "袖长+0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "11"
+        },
+        {
+            "DefectNo": "DF0174",
+            "DefectText": "袖长-0.5cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "12"
+        },
+        {
+            "DefectNo": "DF0175",
+            "DefectText": "扭度2cm",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "13"
+        },
+        {
+            "DefectNo": "DF0176",
+            "DefectText": "尺寸其他",
+            "GroupName": "尺寸问题",
+            "ModuleName": "印绣花报告",
+            "Usable": "1",
+            "SortId": "14"
         }
     ]

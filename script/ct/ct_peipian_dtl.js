@@ -141,9 +141,11 @@ function changeFW(){
   var UIActionSelector = api.require('UIActionSelector');
   var positions=[];
   var tmps=COM.FilterObjectArray(sys_positions,{GroupName:"配片",ModuleName:"配片"})
-  tmps.forEach(item=>{
+  var item=null;
+  for(var i=0;i<tmps.length;i++){
+    item=tmps[i];
     positions.push({no:item.PositionNo,name:item.PositionName});
-  })
+  }
   UIActionSelector.open({
       datas:positions,
       layout: {
